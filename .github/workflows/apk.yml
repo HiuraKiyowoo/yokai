@@ -3,14 +3,11 @@ on:
   push:
     branches: [build-baseline]
   workflow_dispatch:
-    inputs:
-      hanya_ekstensi:
-        description: 'Lewati build aplikasi, cukup ekstensi'
-        type: boolean
-        default: true
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,12 +25,7 @@ jobs:
         run: |
           mkdir -p ~/.gradle
           cp .github/runner-files/ci-gradle.properties ~/.gradle/gradle.properties
-      - name: Build ekstensi Wibutime
-        run: |
-          set -o pipefail
-          ./gradlew :wibutime:assembleRelease --no-daemon --stacktrace --console=plain 2>&1 | tee ext.log
       - name: Build aplikasi
-        if: ${{ github.event_name != 'workflow_dispatch' || inputs.hanya_ekstensi == false }}
         run: |
           set -o pipefail
           ./gradlew :app:assembleStandardNightly --no-daemon --stacktrace --console=plain 2>&1 | tee app.log
@@ -41,32 +33,33 @@ jobs:
         if: always()
         run: |
           {
-            echo "===== awal ext.log ====="; head -60 ext.log 2>/dev/null
-            echo "===== konteks What went wrong ====="; grep -A 25 "What went wrong" ext.log 2>/dev/null
-            echo "===== kandidat galat ====="; grep -nE "error:|FAILURE:|Caused by:|Could not|e: file|Cannot|Unresolved|not found" ext.log 2>/dev/null | head -40
-            echo "===== ekor ext.log ====="; tail -40 ext.log 2>/dev/null
+            echo "===== What went wrong ====="; grep -A 25 "What went wrong" app.log 2>/dev/null
+            echo "===== error ====="; grep -nE "^e: file.*yokai|error:|Cannot|Unresolved|FAILURE" app.log 2>/dev/null | head -40
+            echo "===== ekor ====="; tail -25 app.log 2>/dev/null
           } > err.txt 2>&1 || true
-          cp ext.log ext-utuh.log 2>/dev/null || true
       - name: Unggah galat
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: err
-          path: |
-            err.txt
-            ext-utuh.log
-          if-no-files-found: warn
-      - name: Unggah ekstensi
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ext-wibutime
-          path: wibutime/build/outputs/apk/release/*.apk
-          if-no-files-found: warn
-      - name: Unggah APK aplikasi
+          path: err.txt
+      - name: Unggah APK
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: apk-yokai
           path: app/build/outputs/apk/**/*.apk
           if-no-files-found: warn
+      # Tag tetap "apk-terbaru": URL unduhannya tidak berubah antar build,
+      # jadi tidak perlu masuk halaman Actions tiap kali.
+      - name: Terbitkan APK ke Release
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view apk-terbaru > /dev/null 2>&1 \
+            || gh release create apk-terbaru --title "APK terbaru (build-baseline)" \
+                 --notes "APK hasil build otomatis cabang build-baseline. Varian arm64-v8a untuk HP Android 64-bit."
+          for f in app/build/outputs/apk/standard/nightly/*.apk; do
+            gh release upload apk-terbaru "$f" --clobber
+          done
