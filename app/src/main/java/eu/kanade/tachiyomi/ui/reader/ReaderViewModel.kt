@@ -32,6 +32,7 @@ import eu.kanade.tachiyomi.source.model.Page
 import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.ui.manga.chapter.ChapterItem
 import eu.kanade.tachiyomi.ui.reader.chapter.ReaderChapterItem
+import eu.kanade.tachiyomi.ui.player.TautanVideo
 import eu.kanade.tachiyomi.ui.reader.loader.ChapterLoader
 import eu.kanade.tachiyomi.ui.reader.loader.DownloadPageLoader
 import eu.kanade.tachiyomi.ui.reader.loader.HttpPageLoader
@@ -121,6 +122,9 @@ class ReaderViewModel(
     private val downloadProvider = DownloadProvider(preferences.context)
 
     private val eventChannel = Channel<Event>()
+
+    /** Supaya pemutar video hanya dibuka sekali untuk satu bab. */
+    private var videoSudahDibuka = false
     val eventFlow = eventChannel.receiveAsFlow()
 
     /**
@@ -396,6 +400,17 @@ class ReaderViewModel(
         chapter: ReaderChapter,
     ): ViewerChapters {
         loader.loadChapter(chapter)
+
+        // Bab yang halamannya berupa tautan video tidak dipakai di pembaca gambar:
+        // serahkan ke VideoActivity, lalu pembaca ditutup.
+        if (!videoSudahDibuka) {
+            chapter.pages?.firstOrNull()?.url?.let { url ->
+                if (TautanVideo.apakahVideo(url)) {
+                    videoSudahDibuka = true
+                    eventChannel.trySend(Event.BukaVideo(url))
+                }
+            }
+        }
 
         val chapterPos = chapterList.indexOf(chapter) ?: -1
         val newChapters = ViewerChapters(
@@ -1071,5 +1086,6 @@ class ReaderViewModel(
         data class SavedImage(val result: SaveImageResult) : Event()
         data class ShareImage(val file: UniFile, val page: ReaderPage, val extraPage: ReaderPage? = null) : Event()
         data class ShareTrackingError(val errors: List<Pair<TrackService, String?>>) : Event()
+        data class BukaVideo(val url: String) : Event()
     }
 }

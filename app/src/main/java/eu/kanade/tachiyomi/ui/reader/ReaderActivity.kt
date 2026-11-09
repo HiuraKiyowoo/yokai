@@ -91,6 +91,7 @@ import eu.kanade.tachiyomi.ui.base.MaterialMenuSheet
 import eu.kanade.tachiyomi.ui.base.activity.BaseActivity
 import eu.kanade.tachiyomi.ui.main.MainActivity
 import eu.kanade.tachiyomi.ui.main.SearchActivity
+import eu.kanade.tachiyomi.ui.player.VideoActivity
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.AddToLibraryFirst
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.Error
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.Success
@@ -432,6 +433,10 @@ class ReaderActivity : BaseActivity<ReaderActivityBinding>() {
                     }
                     is ReaderViewModel.Event.SetOrientation -> {
                         setOrientation(event.orientation)
+                    }
+                    is ReaderViewModel.Event.BukaVideo -> {
+                        startActivity(VideoActivity.intent(this@ReaderActivity, event.url))
+                        finish()
                     }
                     is ReaderViewModel.Event.SavedImage -> {
                         onSaveImageResult(event.result)

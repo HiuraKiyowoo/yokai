@@ -163,6 +163,10 @@ dependencies {
 
     implementation(libs.flexbox)
 
+    // Pemutar video: dipakai saat bab berisi tautan video, bukan gambar
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.ui)
+
     implementation(libs.material)
 
     // Android X libraries

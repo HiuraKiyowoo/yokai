@@ -346,6 +346,12 @@
         <meta-data android:name="android.webkit.WebView.MetricsOptOut"
             android:value="true" />
 
+        <activity
+            android:name=".ui.player.VideoActivity"
+            android:theme="@style/Theme.Tachiyomi"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden|uiMode"
+            android:resizeableActivity="true" />
+
     </application>
 
     <uses-sdk tools:overrideLibrary="rikka.shizuku.api"
