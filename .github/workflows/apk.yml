@@ -40,13 +40,22 @@ jobs:
       - name: Ringkas galat
         if: always()
         run: |
-          { grep -nE "error:|FAILURE:|What went wrong|Caused by:|Could not|e: file" ext.log app.log 2>/dev/null | head -60; echo "----- ekor ext -----"; tail -30 ext.log 2>/dev/null; } > err.txt 2>&1 || true
+          {
+            echo "===== awal ext.log ====="; head -60 ext.log 2>/dev/null
+            echo "===== konteks What went wrong ====="; grep -A 25 "What went wrong" ext.log 2>/dev/null
+            echo "===== kandidat galat ====="; grep -nE "error:|FAILURE:|Caused by:|Could not|e: file|Cannot|Unresolved|not found" ext.log 2>/dev/null | head -40
+            echo "===== ekor ext.log ====="; tail -40 ext.log 2>/dev/null
+          } > err.txt 2>&1 || true
+          cp ext.log ext-utuh.log 2>/dev/null || true
       - name: Unggah galat
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: err
-          path: err.txt
+          path: |
+            err.txt
+            ext-utuh.log
+          if-no-files-found: warn
       - name: Unggah ekstensi
         if: always()
         uses: actions/upload-artifact@v4
