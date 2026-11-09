@@ -26,7 +26,20 @@ jobs:
           "$SDKM" "platforms;android-36" "build-tools;36.0.0" "ndk;27.2.12479018" > /dev/null 2>&1 || true
           echo "ANDROID_HOME=$ANDROID_HOME"
       - name: Build APK
-        run: ./gradlew :app:assembleStandardDebug --no-daemon --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleStandardDebug --no-daemon --stacktrace --console=plain 2>&1 | tee build.log
+      - name: Ringkas galat
+        if: always()
+        run: |
+          { grep -nE "error:|FAILURE:|What went wrong|Caused by:|Could not|e: file" build.log | head -80; echo "----- ekor -----"; tail -60 build.log; } > err.txt 2>&1 || true
+          wc -l err.txt
+      - name: Unggah galat
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: err
+          path: err.txt
       - name: Unggah APK
         if: always()
         uses: actions/upload-artifact@v4
