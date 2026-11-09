@@ -31,7 +31,7 @@ jobs:
       - name: Build ekstensi Wibutime
         run: |
           set -o pipefail
-          ./gradlew :extensions:wibutime:assembleRelease --no-daemon --stacktrace --console=plain 2>&1 | tee ext.log
+          ./gradlew :wibutime:assembleRelease --no-daemon --stacktrace --console=plain 2>&1 | tee ext.log
       - name: Build aplikasi
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.hanya_ekstensi == false }}
         run: |
@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ext-wibutime
-          path: extensions/wibutime/build/outputs/apk/release/*.apk
+          path: wibutime/build/outputs/apk/release/*.apk
           if-no-files-found: warn
       - name: Unggah APK aplikasi
         if: always()
