@@ -56,15 +56,10 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
     }
 
     private fun siapkan(url: String) {
-        val p = ExoPlayer.Builder(this).build()
-        pemutar = p
-        binding.pemutar.player = p
-
         // Beberapa CDN menolak permintaan tanpa Referer sama sekali (Cloudflare
-        // membalas 403), dan pemutar bawaan ExoPlayer tidak mengirim Referer.
-        // Dipakai asal tautan itu sendiri — cukup untuk host yang hanya minta
-        // Referer "bukan domain asing". Kalau host butuh Referer situs tertentu,
-        // extension bisa mengirimnya lewat extra KUNCI_HEADER.
+        // membalas 403) dan pemutar bawaan tidak mengirim Referer. Dipakai asal
+        // tautan itu sendiri; kalau host butuh Referer situs tertentu, extension
+        // bisa mengirimnya lewat extra KUNCI_HEADER.
         val asal = runCatching {
             Uri.parse(url).let { "${it.scheme}://${it.host}/" }
         }.getOrNull()
@@ -79,10 +74,13 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
         }
 
         val http = DefaultHttpDataSource.Factory().setDefaultRequestProperties(header)
+        val p = ExoPlayer.Builder(this)
+            .setMediaSourceFactory(
+                DefaultMediaSourceFactory(DefaultDataSource.Factory(this, http)),
+            )
+            .build()
+        pemutar = p
         binding.pemutar.player = p
-        p.setMediaSourceFactory(
-            DefaultMediaSourceFactory(DefaultDataSource.Factory(this, http)),
-        )
 
         p.addListener(
             object : Player.Listener {
