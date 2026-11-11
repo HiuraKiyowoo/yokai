@@ -7,10 +7,14 @@ import android.view.WindowManager
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import android.net.Uri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.datasource.DefaultDataSource
+import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import eu.kanade.tachiyomi.databinding.ActivityVideoBinding
 import eu.kanade.tachiyomi.ui.base.activity.BaseActivity
 
@@ -56,6 +60,30 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
         pemutar = p
         binding.pemutar.player = p
 
+        // Beberapa CDN menolak permintaan tanpa Referer sama sekali (Cloudflare
+        // membalas 403), dan pemutar bawaan ExoPlayer tidak mengirim Referer.
+        // Dipakai asal tautan itu sendiri — cukup untuk host yang hanya minta
+        // Referer "bukan domain asing". Kalau host butuh Referer situs tertentu,
+        // extension bisa mengirimnya lewat extra KUNCI_HEADER.
+        val asal = runCatching {
+            Uri.parse(url).let { "${it.scheme}://${it.host}/" }
+        }.getOrNull()
+
+        val header = HashMap<String, String>()
+        asal?.let { header["Referer"] = it }
+        intent.getStringArrayExtra(KUNCI_HEADER)?.let { arr ->
+            for (h in arr) {
+                val pisah = h.indexOf(':')
+                if (pisah > 0) header[h.substring(0, pisah).trim()] = h.substring(pisah + 1).trim()
+            }
+        }
+
+        val http = DefaultHttpDataSource.Factory().setDefaultRequestProperties(header)
+        binding.pemutar.player = p
+        p.setMediaSourceFactory(
+            DefaultMediaSourceFactory(DefaultDataSource.Factory(this, http)),
+        )
+
         p.addListener(
             object : Player.Listener {
                 override fun onPlayerError(error: PlaybackException) {
@@ -85,8 +113,11 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
 
     companion object {
         private const val KUNCI_URL = "url_video"
+        private const val KUNCI_HEADER = "header_video"
 
-        fun intent(context: Context, url: String): Intent =
-            Intent(context, VideoActivity::class.java).putExtra(KUNCI_URL, url)
+        fun intent(context: Context, url: String, header: List<String> = emptyList()): Intent =
+            Intent(context, VideoActivity::class.java)
+                .putExtra(KUNCI_URL, url)
+                .putExtra(KUNCI_HEADER, header.toTypedArray())
     }
 }

@@ -395,6 +395,18 @@ class ReaderViewModel(
      * Loads the given [chapter] with this [loader] and updates the currently active chapters.
      * Callers must handle errors.
      */
+    /**
+     * Header milik extension sumber (mis. Referer situs) supaya pemutar video
+     * tidak ditolak CDN yang melindungi berkasnya dari permintaan tanpa Referer.
+     */
+    private fun headerVideo(): List<String> = runCatching {
+        (getSource() as? eu.kanade.tachiyomi.source.online.HttpSource)
+            ?.headers
+            ?.toMultimap()
+            ?.map { (nama, nilai) -> "$nama: ${nilai.firstOrNull().orEmpty()}" }
+            .orEmpty()
+    }.getOrDefault(emptyList())
+
     private suspend fun loadChapter(
         loader: ChapterLoader,
         chapter: ReaderChapter,
@@ -407,7 +419,7 @@ class ReaderViewModel(
             chapter.pages?.firstOrNull()?.url?.let { url ->
                 if (TautanVideo.apakahVideo(url)) {
                     videoSudahDibuka = true
-                    eventChannel.trySend(Event.BukaVideo(url))
+                    eventChannel.trySend(Event.BukaVideo(url, headerVideo()))
                 }
             }
         }
@@ -1086,6 +1098,6 @@ class ReaderViewModel(
         data class SavedImage(val result: SaveImageResult) : Event()
         data class ShareImage(val file: UniFile, val page: ReaderPage, val extraPage: ReaderPage? = null) : Event()
         data class ShareTrackingError(val errors: List<Pair<TrackService, String?>>) : Event()
-        data class BukaVideo(val url: String) : Event()
+        data class BukaVideo(val url: String, val header: List<String> = emptyList()) : Event()
     }
 }

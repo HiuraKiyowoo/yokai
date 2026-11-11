@@ -435,7 +435,7 @@ class ReaderActivity : BaseActivity<ReaderActivityBinding>() {
                         setOrientation(event.orientation)
                     }
                     is ReaderViewModel.Event.BukaVideo -> {
-                        startActivity(VideoActivity.intent(this@ReaderActivity, event.url))
+                        startActivity(VideoActivity.intent(this@ReaderActivity, event.url, event.header))
                         finish()
                     }
                     is ReaderViewModel.Event.SavedImage -> {
