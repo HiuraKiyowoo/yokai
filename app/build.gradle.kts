@@ -166,6 +166,7 @@ dependencies {
     // Pemutar video: dipakai saat bab berisi tautan video, bukan gambar
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.ui)
+    implementation(libs.media3.exoplayer.hls)
 
     implementation(libs.material)
 
