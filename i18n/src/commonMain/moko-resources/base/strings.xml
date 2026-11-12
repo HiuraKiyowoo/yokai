@@ -30,8 +30,8 @@
 
     <!--Models-->
 
-    <!-- Series Type -->
-    <string name="series">Series</string>
+    <!-- Manga Type -->
+    <string name="manga">Series</string>
     <string name="manhwa">Manhwa</string>
     <string name="manhua">Manhua</string>
     <string name="comic">Comic</string>
@@ -40,7 +40,7 @@
     <string name="library_entries">Library entries</string>
     <string name="not_started">Not started</string>
     <string name="in_progress">In progress</string>
-    <string name="watch">Watch</string>
+    <string name="read">Watch</string>
     <string name="title">Title</string>
     <string name="author">Author</string>
     <string name="artist">Artist</string>
@@ -64,10 +64,10 @@
     <string name="lock_with_biometrics">Require unlock</string>
     <string name="lock_when_idle">Lock when idle</string>
 
-    <!-- Episodes -->
-    <string name="episodes">Episodes</string>
+    <!-- Chapters -->
+    <string name="chapters">Episodes</string>
     <string name="new_chapters">New episodes</string>
-    <string name="unwatched">Unwatched</string>
+    <string name="unread">Unwatched</string>
     <string name="last_read_chapter_">Last watch Episode %1$s</string>
     <string name="chapter_">Episode %1$s</string>
     <string name="chapter_x_of_y">Episode %1$d of %2$d</string>
@@ -369,7 +369,7 @@
     <string name="action_revoke_all_extensions">Revoke all trusted extensions</string>
     <string name="confirm_revoke_all_extensions">Revoke all trusted extensions?</string>
 
-    <!-- Player -->
+    <!-- Reader -->
     <string name="set_as_cover">Set as cover</string>
     <string name="reader_settings">Player settings</string>
     <string name="set_as_default_for_all">Set as default for all</string>
@@ -407,7 +407,7 @@
     <string name="share_combined_pages">Share combined pages</string>
     <string name="save_combined_pages">Save combined pages</string>
 
-    <!-- Player settings -->
+    <!-- Reader settings -->
     <string name="fullscreen">Fullscreen</string>
     <string name="animate_page_transitions">Animate page transitions</string>
     <string name="enable_zoom_out">Enable zoom out</string>
@@ -525,7 +525,7 @@
     <string name="pref_hardware_bitmap_threshold_summary">If player loads a blank image incrementally reduce the threshold.\nSelected: %s</string>
     <string name="pref_double_tap_zoom">Double tap to zoom</string>
 
-    <!-- Series details -->
+    <!-- Manga details -->
     <string name="about_this_">About this %1$s</string>
     <string name="start_reading">Start watching</string>
     <string name="start_reading_chapter_">Start watching Episode %1$s</string>
@@ -594,14 +594,14 @@
     <string name="enhanced_tracking_info">Services that provide enhanced features for specific sources. Entries are automatically tracked when added to your library.</string>
     <string name="update_tracking_after_reading">Update tracking after watching</string>
     <string name="update_tracking_marked_read">Update tracking when marked as watch</string>
-    <string name="watching">Watching</string>
+    <string name="reading">Watching</string>
     <string name="currently_reading">Currently Watching</string>
     <string name="dropped">Dropped</string>
     <string name="on_hold">On hold</string>
     <string name="plan_to_read">Plan to watch</string>
     <string name="want_to_read">Want to Watch</string>
     <string name="paused">Paused</string>
-    <string name="rewatching">Rewatching</string>
+    <string name="rereading">Rewatching</string>
     <string name="reading_list">Watching List</string>
     <string name="wish_list">Wish List</string>
     <string name="complete_list">Complete List</string>
@@ -673,7 +673,7 @@
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="general">General</string>
-    <string name="player">Player</string>
+    <string name="reader">Player</string>
     <string name="appearance">Appearance</string>
     <string name="advanced">Advanced</string>
     <string name="about">About</string>

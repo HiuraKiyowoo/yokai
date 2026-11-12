@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="categories">Kategori</string>
-    <string name="series">Series</string>
+    <string name="manga">Series</string>
     <string name="chapters">Episode</string>
     <string name="tracking">Pelacakan</string>
     <string name="history">Riwayat</string>
