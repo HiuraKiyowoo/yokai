@@ -31,47 +31,10 @@ class AppUpdateChecker(
         }
 
         return withIOContext {
-            val result = if (preferences.checkForBetas().get()) {
-                networkService.client
-                    .newCall(GET("https://api.github.com/repos/$GITHUB_REPO/releases"))
-                    .await()
-                    .parseAs<List<GithubRelease>>()
-                    .let { githubReleases ->
-                        val releases =
-                            githubReleases.take(10).filter { isNewVersion(it.version) }
-                        // Check if any of the latest versions are newer than the current version
-                        val release = releases
-                            .maxWithOrNull { r1, r2 ->
-                                when {
-                                    r1.version == r2.version -> 0
-                                    isNewVersion(r2.version, r1.version) -> -1
-                                    else -> 1
-                                }
-                            }
-                        preferences.lastAppCheck().set(Date().time)
+            val result = runCatching { periksaRilis(context) }
+                .getOrDefault(AppUpdateResult.NoNewUpdate)
+            preferences.lastAppCheck().set(Date().time)
 
-                        if (release != null) {
-                            AppUpdateResult.NewUpdate(release)
-                        } else {
-                            AppUpdateResult.NoNewUpdate
-                        }
-                    }
-            } else {
-                networkService.client
-                    .newCall(GET("https://api.github.com/repos/$GITHUB_REPO/releases/latest"))
-                    .await()
-                    .parseAs<GithubRelease>()
-                    .let {
-                        preferences.lastAppCheck().set(Date().time)
-
-                        // Check if latest version is newer than the current version
-                        if (isNewVersion(it.version)) {
-                            AppUpdateResult.NewUpdate(it)
-                        } else {
-                            AppUpdateResult.NoNewUpdate
-                        }
-                    }
-            }
             if (doExtrasAfterNewUpdate && result is AppUpdateResult.NewUpdate) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
                     preferences.appShouldAutoUpdate().get() != AppDownloadInstallJob.NEVER
@@ -85,6 +48,38 @@ class AppUpdateChecker(
         }
     }
 
+    /**
+     * Memeriksa rilis aplikasi.
+     *
+     * Repo ini menerbitkan APK ke SATU rilis bertag tetap (`apk-terbaru`) dan tiap build hijau
+     * menimpa asetnya (`gh release upload --clobber`). Updater bawaan membandingkan `tag_name`
+     * dengan `VERSION_NAME`, jadi di repo ini ia selamanya berhenti di "tidak ada pembaruan".
+     *
+     * Yang dibandingkan di sini: **waktu unggah aset APK di GitHub** vs **waktu paket terpasang**
+     * (`lastUpdateTime`). Kelonggaran 2 menit diberikan supaya APK yang baru dipasang dari rilis
+     * yang sama tidak langsung dianggap usang.
+     */
+    private suspend fun periksaRilis(context: Context): AppUpdateResult {
+        val rilis = networkService.client
+            .newCall(GET("https://api.github.com/repos/$GITHUB_REPO/releases/tags/$RELEASE_TAG"))
+            .await()
+            .parseAs<GithubRelease>()
+
+        val waktuAset = rilis.waktuAset
+        if (waktuAset <= 0L || rilis.downloadLink.isBlank()) return AppUpdateResult.NoNewUpdate
+
+        @Suppress("DEPRECATION")
+        val terpasang = context.packageManager
+            .getPackageInfo(context.packageName, 0)
+            .lastUpdateTime
+
+        return if (waktuAset > terpasang + TimeUnit.MINUTES.toMillis(2)) {
+            AppUpdateResult.NewUpdate(rilis)
+        } else {
+            AppUpdateResult.NoNewUpdate
+        }
+    }
+
     @VisibleForTesting
     fun isNewVersion(newVersion: String, currentVersion: String = BuildConfig.VERSION_NAME): Boolean =
         try {
@@ -94,20 +89,13 @@ class AppUpdateChecker(
         }
 }
 
-val RELEASE_TAG: String by lazy {
-    if (BuildConfig.NIGHTLY) {
-        "r${BuildConfig.COMMIT_COUNT}"
-    } else {
-        "v${BuildConfig.VERSION_NAME}"
-    }
-}
+/** Repo tempat APK aplikasi diterbitkan. */
+val GITHUB_REPO: String by lazy { "HiuraKiyowoo/yokai" }
 
-val GITHUB_REPO: String by lazy {
-    if (BuildConfig.NIGHTLY) {
-        "null2264/yokai-nightly"
-    } else {
-        "null2264/yokai"
-    }
-}
+/**
+ * Tag rilis tetap. Asetnya ditimpa tiap build hijau, jadi tag ini tidak pernah berubah —
+ * perbandingan versi memakai waktu unggah aset (lihat [GithubRelease.waktuAset]).
+ */
+val RELEASE_TAG: String by lazy { "apk-terbaru" }
 
 val RELEASE_URL = "https://github.com/$GITHUB_REPO/releases/tag/$RELEASE_TAG"

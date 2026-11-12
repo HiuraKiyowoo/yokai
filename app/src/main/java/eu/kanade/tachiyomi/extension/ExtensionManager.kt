@@ -3,6 +3,7 @@ package eu.kanade.tachiyomi.extension
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.os.Looper
 import android.os.Parcelable
 import co.touchlab.kermit.Logger
 import eu.kanade.tachiyomi.data.preference.PreferencesHelper
@@ -22,10 +23,13 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
@@ -111,7 +115,17 @@ class ExtensionManager(
     val untrustedExtensionsFlow = _untrustedExtensionsFlow.asStateFlow()
 
     init {
-        initExtensions()
+        // Pemuatan ekstensi memakai ExtensionLoader.loadExtensions() yang BLOCKING
+        // (runBlocking + ClassLoader per paket). Kalau dijalankan di thread pemanggil dan
+        // pemanggilnya main thread — MainActivity, presenter Extensions, atau
+        // ExtensionInstallBroadcast yang menyala tepat setelah APK ekstensi dipasang —
+        // aplikasi membeku dan Android menampilkan "Yokai tidak menanggapi".
+        // Main thread selalu dilepas; pemanggil latar tetap sinkron seperti semula.
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            CoroutineScope(SupervisorJob() + Dispatchers.IO).launch { initExtensions() }
+        } else {
+            initExtensions()
+        }
         ExtensionInstallReceiver(InstallationListener()).register(context)
     }
 

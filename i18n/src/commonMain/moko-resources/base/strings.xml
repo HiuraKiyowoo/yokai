@@ -10,7 +10,7 @@
     <string name="onboarding_heading">Welcome!</string>
     <string name="onboarding_description">Let\'s pick some defaults. You can always change these things later in the settings.</string>
     <string name="onboarding_finish">Get started</string>
-    <string name="onboarding_storage_info">Select a folder where %1$s will store chapter downloads, backups, and more.\n\nA dedicated folder is recommended.\n\nSelected folder: %2$s</string>
+    <string name="onboarding_storage_info">Select a folder where %1$s will store episode downloads, backups, and more.\n\nA dedicated folder is recommended.\n\nSelected folder: %2$s</string>
     <string name="onboarding_storage_action_select">Select a folder</string>
     <string name="onboarding_storage_help_info">Updating from an older version and not sure what to select? Refer to the Tachiyomi upgrade section on the Mihon storage guide for more information.</string>
     <string name="onboarding_storage_help_action">Storage guide</string>
@@ -30,8 +30,8 @@
 
     <!--Models-->
 
-    <!-- Manga Type -->
-    <string name="manga">Manga</string>
+    <!-- Series Type -->
+    <string name="series">Series</string>
     <string name="manhwa">Manhwa</string>
     <string name="manhua">Manhua</string>
     <string name="comic">Comic</string>
@@ -40,7 +40,7 @@
     <string name="library_entries">Library entries</string>
     <string name="not_started">Not started</string>
     <string name="in_progress">In progress</string>
-    <string name="read">Read</string>
+    <string name="watch">Watch</string>
     <string name="title">Title</string>
     <string name="author">Author</string>
     <string name="artist">Artist</string>
@@ -64,30 +64,30 @@
     <string name="lock_with_biometrics">Require unlock</string>
     <string name="lock_when_idle">Lock when idle</string>
 
-    <!-- Chapters -->
-    <string name="chapters">Chapters</string>
-    <string name="new_chapters">New chapters</string>
-    <string name="unread">Unread</string>
-    <string name="last_read_chapter_">Last read Chapter %1$s</string>
-    <string name="chapter_">Chapter %1$s</string>
-    <string name="chapter_x_of_y">Chapter %1$d of %2$d</string>
+    <!-- Episodes -->
+    <string name="episodes">Episodes</string>
+    <string name="new_chapters">New episodes</string>
+    <string name="unwatched">Unwatched</string>
+    <string name="last_read_chapter_">Last watch Episode %1$s</string>
+    <string name="chapter_">Episode %1$s</string>
+    <string name="chapter_x_of_y">Episode %1$d of %2$d</string>
     <string name="page_x_of_y">Page %1$d of %2$d</string>
-    <string name="all_chapters_read">All chapters read</string>
+    <string name="all_chapters_read">All episodes watch</string>
     <string name="bookmarked">Bookmarked</string>
     <string name="not_bookmarked">Not bookmarked</string>
-    <string name="marked_as_read">Marked as read</string>
-    <string name="marked_as_unread">Marked as unread</string>
+    <string name="marked_as_read">Marked as watch</string>
+    <string name="marked_as_unread">Marked as unwatched</string>
     <string name="removed_bookmark">Removed bookmark</string>
-    <string name="chapters_removed">Chapters removed.</string>
-    <string name="chapter_not_found">Chapter not found</string>
-    <string name="local_invalid_format">Invalid chapter format</string>
+    <string name="chapters_removed">Episodes removed.</string>
+    <string name="chapter_not_found">Episode not found</string>
+    <string name="local_invalid_format">Invalid episode format</string>
     <string name="order_by">Order by</string>
-    <string name="no_chapters_error">No chapters found</string>
+    <string name="no_chapters_error">No episodes found</string>
     <string name="no_pages_found">No pages found</string>
     <string name="remove_all_downloads">Remove all downloads?</string>
-    <string name="no_chapters_to_delete">No chapters to delete</string>
+    <string name="no_chapters_to_delete">No episodes to delete</string>
     <string name="by_source_order">By source\'s order</string>
-    <string name="by_chapter_number">By chapter number</string>
+    <string name="by_chapter_number">By episode number</string>
     <string name="by_update_date">By upload date</string>
     <string name="scanlators">Scanlators</string>
 
@@ -156,10 +156,10 @@
     <string name="expand_all_categories">Expand all categories</string>
     <string name="collapse_all_categories">Collapse all categories</string>
     <string name="reorder_filters">Reorder filters</string>
-    <string name="_unread">%d unread</string>
+    <string name="_unread">%d unwatched</string>
     <string name="search_globally">Search \"%1$s\" globally</string>
 
-    <string name="read_progress">Read progress</string>
+    <string name="read_progress">Watch progress</string>
     <string name="series_type">Series type</string>
     <string name="series">Series</string>
     <string name="group_library_by">Group library by…</string>
@@ -168,17 +168,17 @@
 
     <string name="pref_use_compose_library">Use experimental compose library</string>
     <string name="pref_behavior">Behavior</string>
-    <string name="pref_mark_as_read_duplicate_read_chapter">Mark duplicate read chapter as read</string>
-    <string name="pref_mark_as_read_duplicate_read_chapter_existing">After reading a chapter</string>
-    <string name="pref_mark_as_read_duplicate_read_chapter_new">After fetching new chapter</string>
+    <string name="pref_mark_as_read_duplicate_read_chapter">Mark duplicate watch episode as watch</string>
+    <string name="pref_mark_as_read_duplicate_read_chapter_existing">After watching a episode</string>
+    <string name="pref_mark_as_read_duplicate_read_chapter_new">After fetching new episode</string>
 
     <!-- Library Sort -->
     <string name="sort_by">Sort by</string>
-    <string name="total_chapters">Total chapters</string>
+    <string name="total_chapters">Total episodes</string>
     <string name="date_added">Date added</string>
-    <string name="last_read">Last read</string>
+    <string name="last_read">Last watch</string>
     <string name="date_fetched">Date fetched</string>
-    <string name="latest_chapter">Latest chapter</string>
+    <string name="latest_chapter">Latest episode</string>
     <string name="drag_and_drop">Drag &amp; Drop</string>
     <string name="random">Random</string>
 
@@ -191,16 +191,16 @@
     <string name="compact_grid">Compact Grid</string>
     <string name="download_badge">Download badges</string>
     <string name="language_badge">Language badges</string>
-    <string name="hide_start_reading_button">Hide start reading button</string>
+    <string name="hide_start_reading_button">Hide start watching button</string>
     <string name="badges">Badges</string>
     <string name="uniform_grid_covers">Uniform grid covers</string>
     <string name="use_staggered_grid">Use staggered grid</string>
     <string name="show_outline_around_covers">Show outline around covers</string>
     <string name="grid_size">Grid size</string>
     <string name="_per_row">%d per row</string>
-    <string name="hide_unread_badges">Hide unread badges</string>
-    <string name="show_unread_badges">Show unread badges</string>
-    <string name="show_unread_count">Show unread count</string>
+    <string name="hide_unread_badges">Hide unwatched badges</string>
+    <string name="show_unread_badges">Show unwatched badges</string>
+    <string name="show_unread_count">Show unwatched count</string>
     <string name="tap_library_to_show_filters">Tap the Library icon to show filters</string>
     <string name="display_as">Display as</string>
     <string name="hide_category_hopper">Hide category hopper</string>
@@ -210,14 +210,14 @@
 
     <!-- Library update service notifications -->
     <string name="allow_notifications_recommended">Allowing notifications is recommended to keep your library and app up to date.</string>
-    <string name="new_chapters_found">New chapters found</string>
+    <string name="new_chapters_found">New episodes found</string>
     <string name="notification_size_warning">Large updates may lead to increased battery usage and sources becoming slower. Tap to learn more.</string>
     <string name="download_queue_size_warning">Warning: large bulk downloads may lead to sources becoming slower and/or blocking Tachiyomi. Tap to learn more.</string>
     <string name="notification_update_error">%1$d update(s) failed</string>
     <string name="notification_update_skipped">%1$d update(s) skipped</string>
     <string name="skipped_reason_completed">Skipped because series is complete</string>
-    <string name="skipped_reason_not_caught_up">Skipped because there are unread chapters</string>
-    <string name="skipped_reason_not_started">Skipped because no chapters are read</string>
+    <string name="skipped_reason_not_caught_up">Skipped because there are unwatched episodes</string>
+    <string name="skipped_reason_not_started">Skipped because no episodes are watch</string>
     <string name="skipped_reason_not_always_update">Skipped because series does not require updates</string>
     <string name="channel_errors">Errors</string>
     <string name="channel_skipped">Skipped</string>
@@ -225,10 +225,10 @@
     <!-- Library settings -->
     <string name="library_update_frequency">Library update frequency</string>
     <string name="pref_library_update_manga_restriction">Skip updating titles</string>
-    <string name="pref_update_only_completely_read">With unread chapter(s)</string>
+    <string name="pref_update_only_completely_read">With unwatched episode(s)</string>
     <string name="pref_update_only_non_completed">With \"Completed\" status</string>
     <string name="pref_update_only_started">That haven\'t been started</string>
-    <string name="pref_update_only_completely_read_summary">Only update series if there is no unread chapter (completely read)</string>
+    <string name="pref_update_only_completely_read_summary">Only update series if there is no unwatched episode (completely watch)</string>
     <string name="library_update_restriction">Device restrictions</string>
     <string name="library_update_restriction_summary">Update only when the conditions are met</string>
     <string name="restrictions_">Restrictions: %1$s</string>
@@ -241,11 +241,11 @@
     <string name="auto_refresh_covers_summary">Refresh covers in library as well
         when updating library</string>
     <string name="global_updates">Global updates</string>
-    <string name="display_buttons_bottom_reader">Buttons at bottom of reader</string>
+    <string name="display_buttons_bottom_reader">Buttons at bottom of player</string>
     <string name="certain_buttons_can_be_found">Certain buttons can be found in other places if disabled here</string>
     <string name="search_suggestions">Search suggestions</string>
     <string name="search_tips_show_periodically">Search tips will show up periodically. Long press the suggestion to search it.</string>
-    <string name="enable_chapter_swipe_action">Enable chapter swipe action</string>
+    <string name="enable_chapter_swipe_action">Enable episode swipe action</string>
 
     <!-- Recents -->
     <string name="recents">Recents</string>
@@ -253,52 +253,52 @@
     <string name="updates">Updates</string>
     <string name="newly_added">Newly added</string>
     <string name="history">History</string>
-    <string name="reset_chapter_history">Reset chapter history</string>
+    <string name="reset_chapter_history">Reset episode history</string>
     <string name="recent_updates">Recent updates</string>
     <string name="label_recent_updates">Updates</string>
-    <string name="this_will_remove_the_read_date_for_x_question">This will remove the read date of
+    <string name="this_will_remove_the_read_date_for_x_question">This will remove the watch date of
         \"%1$s\". Are you sure?</string>
-    <string name="reset_all_chapters_for_this_">Reset all chapters for this %1$s</string>
-    <string name="last_read_">Last read %1$s</string>
-    <string name="read_">Read %1$s</string>
+    <string name="reset_all_chapters_for_this_">Reset all episodes for this %1$s</string>
+    <string name="last_read_">Last watch %1$s</string>
+    <string name="read_">Watch %1$s</string>
     <string name="updated_">Updated %1$s</string>
     <string name="added_">Added %1$s</string>
     <string name="fetched_">Fetched %1$s</string>
     <string name="updates_last_update_info">Library last updated: %s</string>
     <string name="view_history">View history</string>
     <string name="view_all_updates">View all updates</string>
-    <string name="show_more_chapters">Show more chapters</string>
-    <string name="collapse_grouped_chapters">Collapse grouped chapters</string>
+    <string name="show_more_chapters">Show more episodes</string>
+    <string name="collapse_grouped_chapters">Collapse grouped episodes</string>
     <string name="search_recents">Search recents…</string>
-    <string name="no_recent_read_updated_manga">No recently read or updated series</string>
-    <string name="no_recent_chapters">No recent chapters</string>
-    <string name="no_recently_read_manga">No recently read series</string>
+    <string name="no_recent_read_updated_manga">No recently watch or updated series</string>
+    <string name="no_recent_chapters">No recent episodes</string>
+    <string name="no_recently_read_manga">No recently watch series</string>
     <string name="grouped">Grouped</string>
-    <string name="reset_chapter_question">Reset chapter?</string>
-    <string name="press_and_hold_to_also_reset">Press and hold can also reset chapter history</string>
+    <string name="reset_chapter_question">Reset episode?</string>
+    <string name="press_and_hold_to_also_reset">Press and hold can also reset episode history</string>
     <string name="show_download_button">Show download button</string>
     <string name="clear_history_completed">History deleted</string>
     <string name="clear_history_confirmation">Are you sure? All history will be lost.</string>
 
     <!-- Recents Settings -->
     <string name="show_reset_history_button">Show reset history button</string>
-    <string name="show_read_chapters_all">Show read chapters in Grouped and All</string>
+    <string name="show_read_chapters_all">Show watch episodes in Grouped and All</string>
     <string name="show_title_first">Show title first</string>
     <string name="a_while_ago">A while ago</string>
     <string name="show_updated_time">Show updated time</string>
     <string name="sort_fetched_time">Sort by fetched time</string>
-    <string name="group_chapters_together">Group chapters together</string>
+    <string name="group_chapters_together">Group episodes together</string>
     <string name="by_series">By series</string>
     <string name="by_week">By week</string>
     <string name="by_day">By day</string>
     <string name="uniform_covers">Uniform covers</string>
     <string name="affects_library_grid">Affects library grid covers</string>
-    <string name="only_unread">Only unread</string>
+    <string name="only_unread">Only unwatched</string>
     <string name="only_downloaded">Only downloaded</string>
-    <string name="unread_or_downloaded">Unread or downloaded</string>
+    <string name="unread_or_downloaded">Unwatched or downloaded</string>
     <string name="clear_history">Clear history</string>
     <string name="recents_long_tap_default">Show download queue</string>
-    <string name="recents_long_tap_last_read">Open last read chapter</string>
+    <string name="recents_long_tap_last_read">Open last watch episode</string>
     <string name="recents_long_tap">Long tap Recents behavior</string>
 
     <!-- Browse -->
@@ -349,7 +349,7 @@
     <string name="ext_installer_summary">Allows extensions to be installed without user prompts and enables automatic updates for devices under Android 12</string>
     <string name="ext_installer_summary_legacy">Legacy installer is not yet implemented, currently falling back to PackageInstaller (Default)</string>
     <string name="untrusted_extension">Untrusted extension</string>
-    <string name="untrusted_extension_message">Malicious extensions can read any stored login credentials or execute arbitrary code.\n\nBy trusting this extension you accept these risks.</string>
+    <string name="untrusted_extension_message">Malicious extensions can watch any stored login credentials or execute arbitrary code.\n\nBy trusting this extension you accept these risks.</string>
     <string name="obsolete_extension_message">This extension is no longer available.</string>
     <string name="unofficial_extension_message">This extension is not from the official Tachiyomi extensions list.</string>
     <string name="version_">Version: %1$s</string>
@@ -369,32 +369,32 @@
     <string name="action_revoke_all_extensions">Revoke all trusted extensions</string>
     <string name="confirm_revoke_all_extensions">Revoke all trusted extensions?</string>
 
-    <!-- Reader -->
+    <!-- Player -->
     <string name="set_as_cover">Set as cover</string>
-    <string name="reader_settings">Reader settings</string>
+    <string name="reader_settings">Player settings</string>
     <string name="set_as_default_for_all">Set as default for all</string>
     <string name="cover_updated">Cover updated</string>
     <string name="page_">Page %1$d</string>
     <string name="pages_">Pages %1$s</string>
-    <string name="next_chapter_not_found">Next chapter not found</string>
+    <string name="next_chapter_not_found">Next episode not found</string>
     <string name="decode_image_error">The image couldn\'t be loaded</string>
     <string name="use_image_as_cover">Use this image as cover art?</string>
-    <string name="reading_mode">Reading mode</string>
-    <string name="changing_will_reset_reading_mode">Changing this will reset the reading mode for this series</string>
+    <string name="reading_mode">Watching mode</string>
+    <string name="changing_will_reset_reading_mode">Changing this will reset the watching mode for this series</string>
     <string name="finished_chapter">Finished:</string>
     <string name="current_chapter">Current:</string>
     <string name="next_title">Next:</string>
     <string name="previous_title">Previous:</string>
-    <string name="theres_no_next_chapter">There\'s no next chapter</string>
-    <string name="theres_no_previous_chapter">There\'s no previous chapter</string>
+    <string name="theres_no_next_chapter">There\'s no next episode</string>
+    <string name="theres_no_previous_chapter">There\'s no previous episode</string>
     <string name="loading_pages">Loading pages…</string>
     <string name="failed_to_load_pages_">Failed to load pages: %1$s</string>
-    <string name="reading_">Reading %1$s</string>
+    <string name="reading_">Watching %1$s</string>
     <string name="long_strip">Long strip</string>
     <string name="next_page">Next page</string>
     <string name="previous_page">Previous page</string>
-    <string name="next_chapter">Next chapter</string>
-    <string name="previous_chapter">Previous chapter</string>
+    <string name="next_chapter">Next episode</string>
+    <string name="previous_chapter">Previous episode</string>
 
     <string name="set_first_page_as_cover">Set first page as cover</string>
     <string name="share_first_page">Share first page</string>
@@ -407,7 +407,7 @@
     <string name="share_combined_pages">Share combined pages</string>
     <string name="save_combined_pages">Save combined pages</string>
 
-    <!-- Reader settings -->
+    <!-- Player settings -->
     <string name="fullscreen">Fullscreen</string>
     <string name="animate_page_transitions">Animate page transitions</string>
     <string name="enable_zoom_out">Enable zoom out</string>
@@ -415,7 +415,7 @@
     <string name="show_page_number">Show page number</string>
     <string name="true_32bit_color">32-bit color</string>
     <string name="page_preload_amount">Page preload amount</string>
-    <string name="amount_of_pages_to_preload">The amount of pages to preload when reading. Higher values will result in a smoother reading experience, at the cost of higher cache and network usage.</string>
+    <string name="amount_of_pages_to_preload">The amount of pages to preload when watching. Higher values will result in a smoother watching experience, at the cost of higher cache and network usage.</string>
     <string name="reduces_banding_impacts_performance">Reduces banding, but may impact
         performance</string>
     <string name="invert_double_pages">Invert double pages</string>
@@ -438,9 +438,9 @@
     <string name="dodge_lighten">Dodge / Lighten</string>
     <string name="burn_darken">Burn / Darken</string>
     <string name="keep_screen_on">Keep screen on</string>
-    <string name="skip_read_chapters">Skip chapters marked read</string>
-    <string name="skip_filtered_chapters">Skip filtered chapters</string>
-    <string name="skip_dupe_chapters">Skip duplicate chapters</string>
+    <string name="skip_read_chapters">Skip episodes marked watch</string>
+    <string name="skip_filtered_chapters">Skip filtered episodes</string>
+    <string name="skip_dupe_chapters">Skip duplicate episodes</string>
     <string name="navigation">Navigation</string>
     <string name="volume_keys">Volume keys</string>
     <string name="invert_volume_keys">Invert volume keys</string>
@@ -450,7 +450,7 @@
     <string name="black">Black</string>
     <string name="smart_by_page">Smart (by page)</string>
     <string name="smart_by_theme">Smart (by theme)</string>
-    <string name="default_reading_mode">Default reading mode</string>
+    <string name="default_reading_mode">Default watching mode</string>
     <string name="left_to_right_viewer">Left to right</string>
     <string name="right_to_left_viewer">Right to left</string>
     <string name="vertical_viewer">Vertical</string>
@@ -480,9 +480,9 @@
     <string name="alpha_initial">A</string>
     <string name="smart_based_on_page">Smart (based on page)</string>
     <string name="smart_based_on_page_and_theme">Smart (based on page and theme)</string>
-    <string name="always_show_chapter_transition">Always show chapter transition</string>
+    <string name="always_show_chapter_transition">Always show episode transition</string>
     <string name="if_disabled_transition_will_skip">If disabled, the transition page will be
-        skipped if the next chapter is loaded</string>
+        skipped if the next episode is loaded</string>
     <string name="pref_long_strip_side_padding">Side padding</string>
     <string name="long_strip_side_padding_0">None</string>
     <string name="long_strip_side_padding_5">5%</string>
@@ -508,12 +508,12 @@
     <string name="pref_cutout_short">Show content in cutout area</string>
     <string name="cutout_ignore">Ignore cutout areas</string>
     <string name="page_layout">Page layout</string>
-    <string name="automatic_can_still_switch">While using automatic page layout, you can still switch between layouts while reading without overriding this setting</string>
+    <string name="automatic_can_still_switch">While using automatic page layout, you can still switch between layouts while watching without overriding this setting</string>
     <string name="automatic_orientation">Automatic (based on orientation)</string>
     <string name="actions">Actions</string>
     <string name="show_on_long_press">Show on long press</string>
     <string name="save_pages_separately">Save pages in separate folders</string>
-    <string name="create_folders_by_manga_title">Creates folders according to manga title</string>
+    <string name="create_folders_by_manga_title">Creates folders according to series title</string>
     <string name="pref_hide_threshold">Sensitivity for hiding menu on scroll</string>
     <string name="pref_highest">Highest</string>
     <string name="pref_high">High</string>
@@ -522,16 +522,16 @@
     <string name="pref_display_profile">Custom display profile</string>
     <string name="pref_hardware_bitmap_threshold">Custom hardware bitmap threshold</string>
     <string name="pref_hardware_bitmap_threshold_default">Default (%d)</string>
-    <string name="pref_hardware_bitmap_threshold_summary">If reader loads a blank image incrementally reduce the threshold.\nSelected: %s</string>
+    <string name="pref_hardware_bitmap_threshold_summary">If player loads a blank image incrementally reduce the threshold.\nSelected: %s</string>
     <string name="pref_double_tap_zoom">Double tap to zoom</string>
 
-    <!-- Manga details -->
+    <!-- Series details -->
     <string name="about_this_">About this %1$s</string>
-    <string name="start_reading">Start reading</string>
-    <string name="start_reading_chapter_">Start reading Chapter %1$s</string>
-    <string name="continue_reading_chapter_">Continue reading Chapter %1$s</string>
-    <string name="continue_reading">Continue reading</string>
-    <string name="chapters_">Chapters %1$s</string>
+    <string name="start_reading">Start watching</string>
+    <string name="start_reading_chapter_">Start watching Episode %1$s</string>
+    <string name="continue_reading_chapter_">Continue watching Episode %1$s</string>
+    <string name="continue_reading">Continue watching</string>
+    <string name="chapters_">Episodes %1$s</string>
     <string name="volume_">Volume %1$d</string>
     <string name="season_">Season %1$d</string>
     <string name="added_to_library">Added to library</string>
@@ -543,26 +543,26 @@
     <string name="_copied_to_clipboard">%1$s copied to clipboard</string>
     <string name="source_not_installed_">Source not installed: %1$s</string>
     <string name="no_description">No description</string>
-    <string name="mark_all_chapters_as_read">Mark all chapters as read?</string>
-    <string name="mark_all_chapters_as_unread">Mark all chapters as unread?</string>
+    <string name="mark_all_chapters_as_read">Mark all episodes as watch?</string>
+    <string name="mark_all_chapters_as_unread">Mark all episodes as unwatched?</string>
     <string name="remove_from_library">Remove from library</string>
-    <string name="select_starting_chapter">Select starting chapter</string>
-    <string name="select_ending_chapter">Select ending chapter</string>
-    <string name="search_chapters">Search chapters</string>
+    <string name="select_starting_chapter">Select starting episode</string>
+    <string name="select_ending_chapter">Select ending episode</string>
+    <string name="search_chapters">Search episodes</string>
     <string name="custom_range">Custom range</string>
-    <string name="all_chapters">All chapters</string>
-    <string name="all_unread_chapters">All unread chapters</string>
-    <string name="all_read_chapters">All read chapters</string>
-    <string name="all_but_bookmarked_chapters">All but bookmarked chapters</string>
+    <string name="all_chapters">All episodes</string>
+    <string name="all_unread_chapters">All unwatched episodes</string>
+    <string name="all_read_chapters">All watch episodes</string>
+    <string name="all_but_bookmarked_chapters">All but bookmarked episodes</string>
     <string name="add_x_to_library">Add %1$s to library?</string>
     <string name="show_all">Show All</string>
-    <string name="show_bookmarked_chapters">Show bookmarked chapters</string>
-    <string name="show_downloaded_chapters">Show downloaded chapters</string>
-    <string name="show_unread_chapters">Show unread chapters</string>
-    <string name="show_read_chapters">Show read chapters</string>
-    <string name="hide_chapter_titles">Hide chapter titles</string>
+    <string name="show_bookmarked_chapters">Show bookmarked episodes</string>
+    <string name="show_downloaded_chapters">Show downloaded episodes</string>
+    <string name="show_unread_chapters">Show unwatched episodes</string>
+    <string name="show_read_chapters">Show watch episodes</string>
+    <string name="hide_chapter_titles">Hide episode titles</string>
     <string name="sort_by_source_s_order">Sort by source\'s order</string>
-    <string name="sort_by_chapter_number">Sort by chapter number</string>
+    <string name="sort_by_chapter_number">Sort by episode number</string>
     <string name="newest_first">Newest to oldest</string>
     <string name="oldest_first">Oldest to newest</string>
     <string name="add_tag">Add tag</string>
@@ -580,7 +580,7 @@
     <string name="app_settings">App settings</string>
     <string name="source_settings">Source settings</string>
     <string name="custom_manga_info">Custom series info</string>
-    <string name="all_read_manga">All read series</string>
+    <string name="all_read_manga">All watch series</string>
     <string name="set_as_default">Set as default</string>
     <string name="filter_groups">Filter scanlator groups</string>
 
@@ -589,20 +589,20 @@
     <string name="tracked">Tracked</string>
     <string name="not_tracked">Not tracked</string>
     <string name="services">Services</string>
-    <string name="tracking_info">One-way sync to update the chapter progress in tracking services. Set up tracking for individual entries from their tracking button.</string>
+    <string name="tracking_info">One-way sync to update the episode progress in tracking services. Set up tracking for individual entries from their tracking button.</string>
     <string name="enhanced_services">Enhanced services</string>
     <string name="enhanced_tracking_info">Services that provide enhanced features for specific sources. Entries are automatically tracked when added to your library.</string>
-    <string name="update_tracking_after_reading">Update tracking after reading</string>
-    <string name="update_tracking_marked_read">Update tracking when marked as read</string>
-    <string name="reading">Reading</string>
-    <string name="currently_reading">Currently Reading</string>
+    <string name="update_tracking_after_reading">Update tracking after watching</string>
+    <string name="update_tracking_marked_read">Update tracking when marked as watch</string>
+    <string name="watching">Watching</string>
+    <string name="currently_reading">Currently Watching</string>
     <string name="dropped">Dropped</string>
     <string name="on_hold">On hold</string>
-    <string name="plan_to_read">Plan to read</string>
-    <string name="want_to_read">Want to Read</string>
+    <string name="plan_to_read">Plan to watch</string>
+    <string name="want_to_read">Want to Watch</string>
     <string name="paused">Paused</string>
-    <string name="rereading">Rereading</string>
-    <string name="reading_list">Reading List</string>
+    <string name="rewatching">Rewatching</string>
+    <string name="reading_list">Watching List</string>
     <string name="wish_list">Wish List</string>
     <string name="complete_list">Complete List</string>
     <string name="on_hold_list">On Hold List</string>
@@ -634,8 +634,8 @@
     <string name="update_tracking_scoring_type">Update %1$s\'s scoring type</string>
     <string name="scoring_type_updated">Scoring type updated</string>
     <string name="could_not_update_scoring_">Could not update scoring type: %1$s</string>
-    <string name="started_reading_date">Started reading date</string>
-    <string name="finished_reading_date">Finished reading date</string>
+    <string name="started_reading_date">Started watching date</string>
+    <string name="finished_reading_date">Finished watching date</string>
     <string name="myanimelist_relogin">Please log in to MAL again</string>
     <string name="use_suggested_date">Use suggested date</string>
     <string name="failed_to_update_">Failed to update %1$s</string>
@@ -650,7 +650,7 @@
     <string name="data_to_include_in_migration">Data to include in migration</string>
     <string name="search_parameter_eg">Search parameter (e.g. language:english)</string>
     <string name="include_extra_search_parameter">Include extra search parameter when searching</string>
-    <string name="use_most_chapters">Use source with the most chapters (slower)</string>
+    <string name="use_most_chapters">Use source with the most episodes (slower)</string>
     <string name="use_first_source">Use first source with alternative</string>
     <string name="skip_this_step_next_time">Skip this step next time</string>
     <string name="to_show_again_setting_sources">To show this screen again, go to Settings ->
@@ -664,7 +664,7 @@
     <string name="migrate">Migrate</string>
     <string name="migrate_">Migrate %1$s</string>
     <string name="copy_value">Copy</string>
-    <string name="no_chapters_found_for_migration">No chapters found, this series cannot be used for
+    <string name="no_chapters_found_for_migration">No episodes found, this series cannot be used for
         migration</string>
     <string name="no_alternatives_found">No Alternatives Found</string>
     <string name="stop_migrating">Stop migrating?</string>
@@ -673,7 +673,7 @@
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="general">General</string>
-    <string name="reader">Reader</string>
+    <string name="player">Player</string>
     <string name="appearance">Appearance</string>
     <string name="advanced">Advanced</string>
     <string name="about">About</string>
@@ -683,7 +683,7 @@
     <string name="turn_on_">Turn on %s</string>
     <string name="turn_off_">Turn off %s</string>
     <string name="incognito_mode">Incognito mode</string>
-    <string name="pauses_reading_history">Pauses reading history</string>
+    <string name="pauses_reading_history">Pauses watching history</string>
 
     <!-- General settings -->
     <string name="app_theme">App theme</string>
@@ -748,9 +748,9 @@
     <string name="app_shortcuts">App shortcuts</string>
     <string name="show_recent_sources">Show recently used sources</string>
     <string name="show_recent_series">Show recent series</string>
-    <string name="includes_recently_read_updated_added">Includes recently read, updated, and added series</string>
-    <string name="series_opens_new_chapters">Series shortcuts opens new chapters</string>
-    <string name="no_new_chapters_open_details">When there\'s no new chapters, the series\' details will open instead</string>
+    <string name="includes_recently_read_updated_added">Includes recently watch, updated, and added series</string>
+    <string name="series_opens_new_chapters">Series shortcuts opens new episodes</string>
+    <string name="no_new_chapters_open_details">When there\'s no new episodes, the series\' details will open instead</string>
 
     <!-- Storage -->
     <string name="data_and_storage">Data and storage</string>
@@ -797,9 +797,9 @@
     <string name="last_auto_backup_info">Last automatically backed up: %s</string>
 
     <!-- Advanced section -->
-    <string name="clear_chapter_cache">Clear chapter cache</string>
+    <string name="clear_chapter_cache">Clear episode cache</string>
     <string name="force_download_cache_refresh">Reindex downloads</string>
-    <string name="force_download_cache_refresh_summary">Force app to recheck downloaded chapters</string>
+    <string name="force_download_cache_refresh_summary">Force app to recheck downloaded episodes</string>
 
     <string name="data_management">Data Management</string>
     <string name="check_for_beta_releases">Check for beta releases</string>
@@ -838,19 +838,19 @@
     <string name="clear_database">Clear database</string>
     <string name="clear_database_source_item_count">%1$d non-library entries in database</string>
     <string name="clear_database_summary">Delete history for entries that are not saved in your library</string>
-    <string name="clear_database_confirmation">Are you sure? Read chapters and progress of non-library entries will be lost</string>
-    <string name="clear_db_exclude_read">Keep entries with read chapters</string>
+    <string name="clear_database_confirmation">Are you sure? Watch episodes and progress of non-library entries will be lost</string>
+    <string name="clear_db_exclude_read">Keep entries with watch episodes</string>
     <string name="clear_database_completed">Entries deleted</string>
     <string name="database_clean">Database clean</string>
     <string name="refresh_library_metadata">Refresh library metadata</string>
     <string name="updates_covers_genres_desc">Updates covers, genres, description and entries status information</string>
     <string name="refresh_tracking_metadata">Refresh tracking metadata</string>
-    <string name="updates_tracking_details">Updates status, score and last chapter read from the tracking services</string>
-    <string name="clean_up_downloaded_chapters">Clean up downloaded chapters</string>
+    <string name="updates_tracking_details">Updates status, score and last episode watch from the tracking services</string>
+    <string name="clean_up_downloaded_chapters">Clean up downloaded episodes</string>
     <string name="delete_unused_chapters">Delete non-existent, partially downloaded,
-        and read chapter folders</string>
+        and watch episode folders</string>
     <string name="clean_orphaned_downloads">Clean orphaned</string>
-    <string name="clean_read_downloads">Clean read</string>
+    <string name="clean_read_downloads">Clean watch</string>
     <string name="clean_read_manga_not_in_library">Clean entries not in library</string>
     <string name="starting_cleanup">Starting cleanup</string>
     <string name="no_folders_to_cleanup">No folders to cleanup</string>
@@ -961,45 +961,45 @@
     <string name="manage_whats_downloading">Manage what\'s downloading</string>
     <string name="visit_recents_for_download_queue">Visit the recents tab to access the download
         queue. You can also double tap or press and hold for quicker access</string>
-    <string name="couldnt_download_low_space">Couldn\'t download chapters due to low disk space</string>
+    <string name="couldnt_download_low_space">Couldn\'t download episodes due to low disk space</string>
     <string name="download_notifier_split_page_not_found">Page %d not found while splitting</string>
     <string name="download_notifier_split_failed">Couldn\'t split downloaded image</string>
     <string name="download_with_id">Auto-append ID</string>
-    <string name="download_with_id_details">May fix issue with downloaded chapters conflicts with one another when they have the same name</string>
+    <string name="download_with_id_details">May fix issue with downloaded episodes conflicts with one another when they have the same name</string>
 
     <!-- Download Notification -->
-    <string name="could_not_download_unexpected_error">Could not download chapter due to unexpected error</string>
+    <string name="could_not_download_unexpected_error">Could not download episode due to unexpected error</string>
     <string name="no_wifi_connection">No Wi-Fi connection available</string>
     <string name="no_network_connection">No network connection available</string>
 
     <!-- Downloads settings -->
     <string name="download_location">Download location</string>
     <string name="only_download_over_wifi">Only download over Wi-Fi</string>
-    <string name="remove_when_marked_as_read">Remove when marked as read</string>
-    <string name="allow_deleting_bookmarked_chapters">Allow deleting bookmarked chapters</string>
-    <string name="remove_after_read">Remove after read</string>
+    <string name="remove_when_marked_as_read">Remove when marked as watch</string>
+    <string name="allow_deleting_bookmarked_chapters">Allow deleting bookmarked episodes</string>
+    <string name="remove_after_read">Remove after watch</string>
     <string name="pref_remove_exclude_categories">Excluded categories</string>
     <string name="custom_location">Custom location</string>
-    <string name="last_read_chapter">Last read chapter</string>
-    <string name="second_to_last">Second to last chapter</string>
-    <string name="third_to_last">Third to last chapter</string>
-    <string name="fourth_to_last">Fourth to last chapter</string>
-    <string name="fifth_to_last">Fifth to last chapter</string>
+    <string name="last_read_chapter">Last watch episode</string>
+    <string name="second_to_last">Second to last episode</string>
+    <string name="third_to_last">Third to last episode</string>
+    <string name="fourth_to_last">Fourth to last episode</string>
+    <string name="fifth_to_last">Fifth to last episode</string>
     <string name="download_ahead">Download ahead</string>
-    <string name="auto_download_while_reading">Auto download while reading</string>
-    <string name="download_ahead_info">Only works on entries in library and if the current chapter plus the next one are already downloaded</string>
-    <string name="download_new_chapters">Download new chapters</string>
+    <string name="auto_download_while_reading">Auto download while watching</string>
+    <string name="download_ahead_info">Only works on entries in library and if the current episode plus the next one are already downloaded</string>
+    <string name="download_new_chapters">Download new episodes</string>
     <string name="categories_to_include_in_download">Categories to include in download</string>
-    <string name="delete_removed_chapters">Delete removed chapters</string>
-    <string name="delete_downloaded_if_removed_online">Delete downloaded chapters if the source
-        has removed the chapter online</string>
-    <string name="ask_on_chapters_page">Delete during global updates, ask on chapters page</string>
+    <string name="delete_removed_chapters">Delete removed episodes</string>
+    <string name="delete_downloaded_if_removed_online">Delete downloaded episodes if the source
+        has removed the episode online</string>
+    <string name="ask_on_chapters_page">Delete during global updates, ask on episodes page</string>
     <string name="always_keep">Always keep</string>
     <string name="always_delete">Always delete</string>
     <string name="automatic_removal">Automatic removal</string>
     <string name="save_chapters_as_cbz">Save as CBZ archive</string>
     <string name="split_tall_images">Split tall images</string>
-    <string name="split_tall_images_summary">Improves reader performance</string>
+    <string name="split_tall_images_summary">Improves player performance</string>
 
     <!-- Stats -->
     <string name="stat">Stat</string>
@@ -1007,16 +1007,16 @@
     <string name="statistics">Statistics</string>
     <string name="statistics_details">Statistics details</string>
     <string name="titles_in_library">Titles in library</string>
-    <string name="chapters_read">Read chapters</string>
+    <string name="chapters_read">Watch episodes</string>
     <string name="mean_tracking_score">Mean tracking score</string>
     <string name="tracked_titles">Tracked titles</string>
-    <string name="downloaded_chapters">Downloaded chapters</string>
+    <string name="downloaded_chapters">Downloaded episodes</string>
     <string name="tags">Tags</string>
     <string name="local_titles">Local titles</string>
     <string name="titles_in_global_update">Titles in global update</string>
     <string name="trackers">Trackers</string>
-    <string name="read_duration">Read duration</string>
-    <string name="read_duration_info">Time spent in the reader, based on chapter history</string>
+    <string name="read_duration">Watch duration</string>
+    <string name="read_duration_info">Time spent in the player, based on episode history</string>
     <string name="manga_status_distribution">Status distribution</string>
     <string name="manga_score_distribution">Score distribution</string>
     <string name="view_detailed_statistics">View detailed statistics</string>
@@ -1090,7 +1090,7 @@
     <string name="delete">Delete</string>
     <string name="deleted_">Deleted: %1$s</string>
     <string name="display">Display</string>
-    <string name="download_unread">Download unread</string>
+    <string name="download_unread">Download unwatched</string>
     <string name="drag_handle">Drag handle</string>
     <string name="edit">Edit</string>
     <string name="enable">Enable</string>
@@ -1111,14 +1111,14 @@
     <string name="less">Less</string>
     <string name="loading">Loading…</string>
     <string name="lock">Lock</string>
-    <string name="mark_all_as_read">Mark all as read</string>
-    <string name="mark_all_as_unread">Mark all as unread</string>
-    <string name="mark_as_read">Mark as read</string>
-    <string name="mark_as_unread">Mark as unread</string>
-    <string name="mark_range_as_read">Mark a range of chapters as read</string>
-    <string name="mark_range_as_unread">Mark a range of chapters as unread</string>
-    <string name="mark_previous_as_read">Mark previous chapters as read</string>
-    <string name="mark_previous_as_unread">Mark previous chapters as unread</string>
+    <string name="mark_all_as_read">Mark all as watch</string>
+    <string name="mark_all_as_unread">Mark all as unwatched</string>
+    <string name="mark_as_read">Mark as watch</string>
+    <string name="mark_as_unread">Mark as unwatched</string>
+    <string name="mark_range_as_read">Mark a range of episodes as watch</string>
+    <string name="mark_range_as_unread">Mark a range of episodes as unwatched</string>
+    <string name="mark_previous_as_read">Mark previous episodes as watch</string>
+    <string name="mark_previous_as_unread">Mark previous episodes as unwatched</string>
     <string name="menu">menu</string>
     <string name="more">More</string>
     <string name="move_to_bottom">Move to bottom</string>
@@ -1186,7 +1186,7 @@
     <string name="unpin">Unpin</string>
     <string name="use_default">Use default</string>
     <string name="view_all">View all</string>
-    <string name="view_chapters">View chapters</string>
+    <string name="view_chapters">View episodes</string>
     <string name="warning">Warning</string>
     <string name="wifi">Wi-Fi</string>
     <string name="webtoon">Webtoon</string>

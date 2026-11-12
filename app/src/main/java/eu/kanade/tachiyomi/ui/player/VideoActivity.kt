@@ -2,6 +2,8 @@ package eu.kanade.tachiyomi.ui.player
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.core.view.WindowCompat
@@ -39,6 +41,12 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         layarPenuh()
 
+        // Rotasi: pemutar mengikuti sensor di KEEMPAT orientasi, termasuk saat auto-rotate
+        // ponsel dimatikan — perilaku lazim pemutar video. Manifest aktivitas ini sudah
+        // memuat configChanges orientasi, jadi pemutaran tidak terulang saat layar berputar.
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+        binding.tombolPutarLayar.setOnClickListener { putarLayar() }
+
         val url = intent.getStringExtra(KUNCI_URL)
         if (url.isNullOrBlank()) {
             finish()
@@ -52,6 +60,18 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
         WindowInsetsControllerCompat(window, binding.root).apply {
             hide(WindowInsetsCompat.Type.systemBars())
             systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    /**
+     * Putar layar manual: tombol ini mengunci arah berlawanan dari arah sekarang, dan
+     * menekannya lagi mengembalikan pemutar ke mode sensor (ikut putaran perangkat).
+     */
+    private fun putarLayar() {
+        requestedOrientation = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
         }
     }
 
