@@ -4,7 +4,9 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import eu.kanade.tachiyomi.ui.library.models.LibraryItem
+import yokai.i18n.MR
 import yokai.presentation.AppBarType
 import yokai.presentation.YokaiScaffold
 import yokai.presentation.library.components.LazyLibraryGrid
@@ -36,7 +38,7 @@ fun LibraryContent(
                         Text("Hidden: ${item.title} - ${item.hiddenItems.size}")
                     }
                     is LibraryItem.Manga -> {
-                        Text("Manga: ${item.libraryManga.manga.title}")
+                        Text(stringResource(MR.strings.manga) + ": ${item.libraryManga.manga.title}")
                     }
                 }
             }

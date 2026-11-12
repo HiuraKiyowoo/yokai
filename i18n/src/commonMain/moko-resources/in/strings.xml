@@ -367,7 +367,7 @@
     <string name="auto_refresh_covers_summary">Perbarui sampul di pustaka ketika memperbarui pustaka</string>
     <string name="auto_refresh_covers">Perbaharui sampul secara otomatis</string>
     <string name="include_in_global_update">Sertakan pembaharuan global</string>
-    <string name="when_sorting_ignore_articles">Ketika mengurutkan berdasarkan alfabet, urutan mengabaikan artikel (a,an,the) di awal judul komik</string>
+    <string name="when_sorting_ignore_articles">Ketika mengurutkan berdasarkan alfabet, urutan mengabaikan artikel (a,an,the) di awal judul series</string>
     <string name="sort_by_ignoring_articles">Urutkan dengan mengabaikan artikel</string>
     <string name="more_library_settings">Pengaturan lanjut pustaka</string>
     <string name="hide_category_hopper">Sembunyikan kategori lompat</string>
@@ -447,7 +447,7 @@
     <string name="does_not_prevent_unofficial_nsfw">Hal ini tidak mencegah ekstensi tidak resmi atau yang berpotensi salahnya label untuk menampilkan konten NSFW (18+) dalam aplikasi.</string>
     <string name="whats_new">Apa yang baru</string>
     <string name="file_picker_error">Tidak ada aplikasi pemilih berkas yang ditemukan</string>
-    <string name="unofficial_extension_message">Ekstensi ini bukan dari daftar ekstensi resmi Tachiyomi.</string>
+    <string name="unofficial_extension_message">Ekstensi ini bukan dari daftar ekstensi resmi Yōkai.</string>
     <string name="nsfw_short">18+</string>
     <string name="unofficial">Tidak resmi</string>
     <string name="may_contain_nsfw">Mungkin berisi konten 18+</string>
@@ -545,7 +545,7 @@
     <string name="group_chapters_together">Kelompokkan episode bersama</string>
     <string name="show_updated_time">Tampilkan waktu pembaruan</string>
     <string name="actions">Tindakan</string>
-    <string name="webview_is_required">WebView diperlukan untuk Tachiyomi</string>
+    <string name="webview_is_required">WebView diperlukan untuk Yōkai</string>
     <string name="release_page">Halaman rilisan</string>
     <string name="no_chapters_to_delete">Tidak ada episode untuk dihapus</string>
     <string name="remove_all_downloads">Hapus semua unduhan?</string>
@@ -779,7 +779,7 @@
     <string name="by_default_side_nav_info">Secara default, navigasi samping digunakan untuk handphone dan tablet tertentu saat landscape, dan selalu ditampilkan di tablet yang lebih besar</string>
     <string name="default_behavior">Tindakan default</string>
     <string name="use_side_navigation">Gunakan navigasi samping</string>
-    <string name="filter_groups">Saring grup pemindai</string>
+    <string name="filter_groups">Saring grup fansub</string>
     <string name="use_suggested_date">Gunakan tanggal yang disarankan</string>
     <string name="log_out_from_">Keluar dari %1$s?</string>
     <string name="remove_from_">Hapus dari %1$s</string>
@@ -787,7 +787,7 @@
     <string name="cannot_remove_tracking_while_offline">Pelacak tidak dapat di hapus dari %1$s ketika sedang offline</string>
     <string name="details_page">Halaman detail</string>
     <string name="theme_buttons_based_on_cover">Tombol tema berdasarkan sampul</string>
-    <string name="scanlators">Scanlator</string>
+    <string name="scanlators">Fansub</string>
     <string name="log_in">Masuk</string>
     <string name="log_out">Keluar</string>
     <string name="keep_in_">Simpan di dalam %1$s</string>
@@ -796,7 +796,7 @@
     <string name="show_outline_around_covers">Tampilkan garis di sekitar sampul</string>
     <string name="ext_installer_shizuku_stopped">Shizuku tidak berjalan</string>
     <string name="ext_installer_shizuku_unavailable_dialog">Pasang dan mulai Shizuku untuk menggunakan Shizuku sebagai pemasang ekstensi.</string>
-    <string name="download_queue_size_warning">Peringatan: mengunduh dalam jumlah besar bisa menyebabkan sumber menjadi lambat dan/atau memblokir Tachiyomi. Ketuk untuk mempelajari lebih lanjut.</string>
+    <string name="download_queue_size_warning">Peringatan: mengunduh dalam jumlah besar bisa menyebabkan sumber menjadi lambat dan/atau memblokir Yōkai. Ketuk untuk mempelajari lebih lanjut.</string>
     <string name="every_3_days">Tiap 3 hari</string>
     <string name="save_chapters_as_cbz">Simpan sebagai arsip CBZ</string>
     <string name="classic_blue">Biru Klasik</string>
@@ -893,7 +893,7 @@
     <string name="user_agent_string">String agen pengguna default</string>
     <string name="language_requires_app_restart">Beberapa bahasa mungkin memerlukan peluncuran ulang aplikasi untuk ditampilkan dengan benar</string>
     <string name="all_read_manga">Semua series yang ditonton</string>
-    <string name="clear_db_exclude_read">Simpan series dengan menonton chapter</string>
+    <string name="clear_db_exclude_read">Simpan series yang episodenya sudah ditonton</string>
     <string name="auto_download_while_reading">Unduh otomatis ketika sedang menonton</string>
     <string name="downloaded_chapters">Diunduh</string>
     <string name="titles_in_library">Judul-judul di perpustakaan</string>
@@ -930,7 +930,7 @@
     <string name="failed_to_update_">Gagal memperbarui %1$s</string>
     <string name="hide_in_library_items">semua yang di sembunyikan sudah ada di pustaka</string>
     <string name="show_more_chapters">Tampilkan lebih banyak</string>
-    <string name="collapse_grouped_chapters">Hilangkan chapter yang digabung</string>
+    <string name="collapse_grouped_chapters">Ringkas episode yang dikelompokkan</string>
     <string name="by_week">Berrdasarkan minggu</string>
     <string name="by_series">Berdasarkan seri</string>
     <string name="by_day">Berdasarkan hari</string>
@@ -997,7 +997,7 @@
     <string name="not_selected">Tidak dipilih</string>
     <string name="selected">Dipilih</string>
     <string name="open_random_series_global">Buka seri acak (Global)</string>
-    <string name="onboarding_storage_help_info">Memperbarui dari versi yang lama dan tidak yakin apa yang harus dipilih? Lihat bagian peningkatan Tachiyomi pada panduan penyimpanan Mihon untuk informasi selengkapnya.</string>
+    <string name="onboarding_storage_help_info">Memperbarui dari versi yang lama dan tidak yakin apa yang harus dipilih? Lihat panduan penyimpanan untuk informasi selengkapnya.</string>
     <string name="onboarding_storage_help_action">Panduan penyimpanan</string>
     <string name="onboarding_permission_type_required">Wajib</string>
     <string name="onboarding_permission_type_optional">Opsional tapi disarankan</string>

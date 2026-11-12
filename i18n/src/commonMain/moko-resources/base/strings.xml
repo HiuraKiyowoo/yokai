@@ -12,7 +12,7 @@
     <string name="onboarding_finish">Get started</string>
     <string name="onboarding_storage_info">Select a folder where %1$s will store episode downloads, backups, and more.\n\nA dedicated folder is recommended.\n\nSelected folder: %2$s</string>
     <string name="onboarding_storage_action_select">Select a folder</string>
-    <string name="onboarding_storage_help_info">Updating from an older version and not sure what to select? Refer to the Tachiyomi upgrade section on the Mihon storage guide for more information.</string>
+    <string name="onboarding_storage_help_info">Updating from an older version and not sure what to select? Refer to the storage guide for more information.</string>
     <string name="onboarding_storage_help_action">Storage guide</string>
     <string name="onboarding_permission_type_required">Required</string>
     <string name="onboarding_permission_type_optional">Optional but recommended</string>
@@ -89,7 +89,7 @@
     <string name="by_source_order">By source\'s order</string>
     <string name="by_chapter_number">By episode number</string>
     <string name="by_update_date">By upload date</string>
-    <string name="scanlators">Scanlators</string>
+    <string name="scanlators">Fansubs</string>
 
     <!-- Category -->
     <string name="category">Category</string>
@@ -212,7 +212,7 @@
     <string name="allow_notifications_recommended">Allowing notifications is recommended to keep your library and app up to date.</string>
     <string name="new_chapters_found">New episodes found</string>
     <string name="notification_size_warning">Large updates may lead to increased battery usage and sources becoming slower. Tap to learn more.</string>
-    <string name="download_queue_size_warning">Warning: large bulk downloads may lead to sources becoming slower and/or blocking Tachiyomi. Tap to learn more.</string>
+    <string name="download_queue_size_warning">Warning: large bulk downloads may lead to sources becoming slower and/or blocking Yōkai. Tap to learn more.</string>
     <string name="notification_update_error">%1$d update(s) failed</string>
     <string name="notification_update_skipped">%1$d update(s) skipped</string>
     <string name="skipped_reason_completed">Skipped because series is complete</string>
@@ -351,7 +351,7 @@
     <string name="untrusted_extension">Untrusted extension</string>
     <string name="untrusted_extension_message">Malicious extensions can watch any stored login credentials or execute arbitrary code.\n\nBy trusting this extension you accept these risks.</string>
     <string name="obsolete_extension_message">This extension is no longer available.</string>
-    <string name="unofficial_extension_message">This extension is not from the official Tachiyomi extensions list.</string>
+    <string name="unofficial_extension_message">This extension is not from the official Yōkai extensions list.</string>
     <string name="version_">Version: %1$s</string>
     <string name="language_">Language: %1$s</string>
     <string name="nsfw_short">18+</string>
@@ -582,7 +582,7 @@
     <string name="custom_manga_info">Custom series info</string>
     <string name="all_read_manga">All watch series</string>
     <string name="set_as_default">Set as default</string>
-    <string name="filter_groups">Filter scanlator groups</string>
+    <string name="filter_groups">Filter fansub groups</string>
 
     <!-- Tracking -->
     <string name="tracking">Tracking</string>
@@ -1049,7 +1049,7 @@
     <string name="please_update_webview">Please update the WebView app for better compatibility</string>
     <string name="information_webview_required">WebView is required for the app to function</string>
     <!-- Do not translate "WebView" -->
-    <string name="webview_is_required">WebView is required for Tachiyomi</string>
+    <string name="webview_is_required">WebView is required for Yōkai</string>
     <string name="action_webview_back">Back</string>
     <string name="action_webview_forward">Forward</string>
     <string name="action_webview_refresh">Refresh</string>
