@@ -52,14 +52,50 @@ jobs:
           if-no-files-found: warn
       # Tag tetap "apk-terbaru": URL unduhannya tidak berubah antar build,
       # jadi tidak perlu masuk halaman Actions tiap kali.
+      #
+      # Versi & catatan rilis diperbarui SETIAP build supaya orang yang membuka
+      # halaman rilis tahu ini build apa dan apa yang berubah:
+      #   judul  -> "Yokai v1.10.3-r6450"  (angka r = git rev-list --count HEAD,
+      #             sama dengan versionNameSuffix "-r${commitCount}" di build.gradle)
+      #   isi    -> versi + commit + tanggal + daftar commit terakhir
+      - name: Siapkan catatan rilis
+        id: rilis
+        run: |
+          HITUNG=$(git rev-list --count HEAD)
+          VERSI="v1.10.3-r${HITUNG}"
+          echo "versi=$VERSI" >> "$GITHUB_OUTPUT"
+          {
+            echo "**Versi:** \`${VERSI}\` · commit [\`${GITHUB_SHA:0:7}\`](https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}) · $(date -u '+%d %b %Y %H:%M UTC')"
+            echo
+            echo "**Perubahan di build ini:**"
+            echo
+            git log -n 12 --pretty=format:"- %s" | sed 's/^/- /'
+            echo
+            echo
+            echo "---"
+            echo
+            echo "Aset utama: **\`app-standard-arm64-v8a-nightly.apk\`** (HP Android 64-bit / arm64-v8a)."
+            echo "Aset lain: \`armeabi-v7a\` (HP 32-bit), \`universal\` (semua ABI), \`x86\`/\`x86_64\` (emulator)."
+            echo
+            echo "Aplikasi memeriksa pembaruan sendiri dengan membandingkan waktu unggah aset di rilis ini"
+            echo "dengan waktu paket terpasang, jadi begitu build ini selesai versi lama akan menawarkan"
+            echo "pembaruan (Setelan → Tentang → pembaruan)."
+          } > catatan-rilis.md
       - name: Terbitkan APK ke Release
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release view apk-terbaru > /dev/null 2>&1 \
-            || gh release create apk-terbaru --title "APK terbaru (build-baseline)" \
-                 --notes "APK hasil build otomatis cabang build-baseline. Varian arm64-v8a untuk HP Android 64-bit."
+          if gh release view apk-terbaru > /dev/null 2>&1; then
+            gh release edit apk-terbaru \
+              --title "Yokai ${{ steps.rilis.outputs.versi }}" \
+              --notes-file catatan-rilis.md
+          else
+            gh release create apk-terbaru \
+              --title "Yokai ${{ steps.rilis.outputs.versi }}" \
+              --notes-file catatan-rilis.md \
+              --target build-baseline
+          fi
           for f in app/build/outputs/apk/standard/nightly/*.apk; do
             gh release upload apk-terbaru "$f" --clobber
           done
