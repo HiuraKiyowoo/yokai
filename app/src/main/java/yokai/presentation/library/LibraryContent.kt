@@ -4,7 +4,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 import eu.kanade.tachiyomi.ui.library.models.LibraryItem
 import yokai.i18n.MR
 import yokai.presentation.AppBarType
