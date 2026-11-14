@@ -10,6 +10,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import android.net.Uri
+import android.widget.Toast
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -76,10 +77,11 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
     }
 
     private fun siapkan(url: String) {
-        // Beberapa CDN menolak permintaan tanpa Referer sama sekali (Cloudflare
-        // membalas 403) dan pemutar bawaan tidak mengirim Referer. Dipakai asal
-        // tautan itu sendiri; kalau host butuh Referer situs tertentu, extension
-        // bisa mengirimnya lewat extra KUNCI_HEADER.
+        // Sebagian CDN (mis. storages.animein.net) membalas 403 bila permintaan tidak
+        // membawa User-Agent sama sekali. DefaultHttpDataSource yang dibuat tanpa
+        // context/userAgent memang tidak mengirim UA, dan itu penyebab "video tidak
+        // jalan" padahal tautannya sehat saat diuji dari terminal. Jadi UA selalu
+        // dipasang, dan bila extension mengirim UA sendiri lewat extra, itu menang.
         val asal = runCatching {
             Uri.parse(url).let { "${it.scheme}://${it.host}/" }
         }.getOrNull()
@@ -92,8 +94,14 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
                 if (pisah > 0) header[h.substring(0, pisah).trim()] = h.substring(pisah + 1).trim()
             }
         }
+        header.putIfAbsent("User-Agent", UA_PEMUTAR)
 
-        val http = DefaultHttpDataSource.Factory().setDefaultRequestProperties(header)
+        val http = DefaultHttpDataSource.Factory()
+            .setUserAgent(header["User-Agent"] ?: UA_PEMUTAR)
+            .setDefaultRequestProperties(header)
+            .setConnectTimeoutMs(30_000)
+            .setReadTimeoutMs(30_000)
+            .setAllowCrossProtocolRedirects(true)
         val p = ExoPlayer.Builder(this)
             .setMediaSourceFactory(
                 DefaultMediaSourceFactory(DefaultDataSource.Factory(this, http)),
@@ -109,6 +117,17 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
                     // kontrol tetap tampil supaya pengguna bisa memilih kualitas lain
                     // dari daftar episode, bukan layar mati tanpa penjelasan.
                     binding.pemutar.controllerShowTimeoutMs = 0
+                    if (error.cause is androidx.media3.datasource.HttpDataSource.InvalidResponseCodeException) {
+                        val kode = (error.cause as androidx.media3.datasource.HttpDataSource.InvalidResponseCodeException)
+                            .responseCode
+                        if (kode == 403 || kode == 401) {
+                            Toast.makeText(
+                                this@VideoActivity,
+                                "Server menolak ($kode). Coba pilih kualitas lain di daftar episode.",
+                                Toast.LENGTH_LONG,
+                            ).show()
+                        }
+                    }
                 }
             },
         )
@@ -132,6 +151,10 @@ class VideoActivity : BaseActivity<ActivityVideoBinding>() {
     companion object {
         private const val KUNCI_URL = "url_video"
         private const val KUNCI_HEADER = "header_video"
+
+        /** UA pemutar: sebagian CDN membalas 403 bila permintaan tanpa User-Agent sama sekali. */
+        private const val UA_PEMUTAR = "Mozilla/5.0 (Linux; Android 14; SM-A125F) AppleWebKit/537.36 " +
+            "(KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36"
 
         fun intent(context: Context, url: String, header: List<String> = emptyList()): Intent =
             Intent(context, VideoActivity::class.java)
