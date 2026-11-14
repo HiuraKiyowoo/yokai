@@ -25,6 +25,18 @@ jobs:
         run: |
           mkdir -p ~/.gradle
           cp .github/runner-files/ci-gradle.properties ~/.gradle/gradle.properties
+      # Keystore tetap: supaya APK hasil build ini bisa dipasang menimpa APK
+      # build sebelumnya (tanpa ini runner memakai debug keystore baru tiap run
+      # dan pemasangan pembaruan gagal: "bentrok dengan paket yang sudah ada").
+      - name: Pasang keystore tetap
+        run: |
+          echo "${{ secrets.YOKAI_KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/yokai-app.jks"
+          {
+            echo "YOKAI_KEYSTORE_PATH=$RUNNER_TEMP/yokai-app.jks"
+            echo "YOKAI_KEYSTORE_PASSWORD=${{ secrets.YOKAI_KEYSTORE_PASSWORD }}"
+            echo "YOKAI_KEY_PASSWORD=${{ secrets.YOKAI_KEY_PASSWORD }}"
+            echo "YOKAI_KEY_ALIAS=${{ secrets.YOKAI_KEY_ALIAS }}"
+          } >> "$GITHUB_ENV"
       - name: Build aplikasi
         run: |
           set -o pipefail

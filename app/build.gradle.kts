@@ -48,6 +48,23 @@ val buildTime: String by lazy {
 val supportedAbis = setOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 
 android {
+    // Keystore tetap untuk build nightly. Tanpa ini runner GitHub membuat debug
+    // keystore BARU setiap build, jadi tanda tangannya berubah dan pemasangan
+    // pembaruan (timpa APK lama) selalu gagal: "bentrok dengan paket yang sudah ada".
+    // Nilainya datang dari secret repo (YOKAI_KEYSTORE_PATH dll); kalau tidak ada,
+    // build tetap jalan memakai debug keystore seperti sebelumnya.
+    val keystorePath: String? = System.getenv("YOKAI_KEYSTORE_PATH")
+    signingConfigs {
+        if (!keystorePath.isNullOrBlank()) {
+            create("yokaiStable") {
+                storeFile = file(keystorePath)
+                storePassword = System.getenv("YOKAI_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("YOKAI_KEY_ALIAS") ?: "yokai"
+                keyPassword = System.getenv("YOKAI_KEY_PASSWORD")
+            }
+        }
+    }
+
     defaultConfig {
         applicationId = "eu.kanade.tachiyomi"
         versionCode = 162
@@ -104,7 +121,11 @@ android {
             buildConfigField("boolean", "BETA", "true")
             buildConfigField("boolean", "NIGHTLY", "true")
 
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (!keystorePath.isNullOrBlank()) {
+                signingConfigs.getByName("yokaiStable")
+            } else {
+                signingConfigs.getByName("debug")
+            }
             matchingFallbacks.add("release")
             versionNameSuffix = "-r${commitCount}"
             applicationIdSuffix = ".nightlyYokai"
