@@ -76,6 +76,16 @@ bekerja tanpa diubah.
 2. Pasang APK sebagai update, tambahkan repo Yuzono, buka 3 ekstensi.
 3. Uji: daftar anime muncul → buka detail → daftar episode → putar satu stream.
 
+## Ganti nama ke Maple (diminta user, dikerjakan setelah port beres)
+
+| Perubahan | Dampak |
+|---|---|
+| Label aplikasi (`app_name` → "Maple") | aman: data, pustaka, riwayat, ekstensi utuh |
+| `applicationId` (mis. `app.maple`) | app lama & baru **berdampingan**; data tidak ikut (wajib ekspor/impor backup); ekstensi muncul **dobel** di kedua app |
+| Keystore app | tidak wajib diganti; ekstensi tidak terpengaruh karena diverifikasi tanda tangan ekstensinya, bukan tanda tangan app |
+
+Urutan aman: label dulu → port stabil → backup → baru ganti `applicationId`.
+
 ## Risiko yang sudah terlihat
 
 - **Tanda tangan `keiyoushi.utils`** disusun dari pola pemakaian, bukan dari sumber resmi (tidak

@@ -395,17 +395,17 @@ internal object ExtensionLoader {
             }
             .flatMap {
                 try {
-                    when (val obj = Class.forName(it, false, classLoader).getDeclaredConstructor().newInstance()) {
+                    val hasil: List<Source> = when (val obj = Class.forName(it, false, classLoader).getDeclaredConstructor().newInstance()) {
                         is Source -> listOf(obj)
                         is SourceFactory -> obj.createSources()
 
                         // Ekstensi generasi baru (lib 12–16) mengekspor antarmuka anime,
                         // bukan Source manga. Bungkus dengan adaptor supaya masuk ke pipeline
                         // UI yang sudah ada, tanpa mengubah layar mana pun.
-                        is AnimeCatalogueSource -> listOf(AnimeSourceAdapter(obj))
+                        is AnimeCatalogueSource -> listOf<Source>(AnimeSourceAdapter(obj))
                         is AnimeSourceFactory -> obj.createSources().mapNotNull { a ->
                             when (a) {
-                                is AnimeCatalogueSource -> AnimeSourceAdapter(a)
+                                is AnimeCatalogueSource -> AnimeSourceAdapter(a) as Source
                                 // AnimeSource tanpa kemampuan katalog belum bisa ditampilkan.
                                 else -> null
                             }
@@ -413,6 +413,7 @@ internal object ExtensionLoader {
 
                         else -> throw Exception("Unknown source class type! ${obj.javaClass}")
                     }
+                    hasil
                 } catch (e: Throwable) {
                     Logger.e(e) { "Extension load error: $extName." }
                     return LoadResult.Error
