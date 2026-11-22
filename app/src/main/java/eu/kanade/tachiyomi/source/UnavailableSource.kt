@@ -10,6 +10,7 @@
 // Begitu ekstensi selesai dimuat, layar yang dibuka ulang akan memakai sumber aslinya.
 package eu.kanade.tachiyomi.source
 
+import eu.kanade.tachiyomi.source.model.FilterList
 import eu.kanade.tachiyomi.source.model.MangasPage
 import eu.kanade.tachiyomi.source.model.Page
 import eu.kanade.tachiyomi.source.model.SChapter
@@ -20,6 +21,8 @@ class UnavailableSource(override val id: Long) : CatalogueSource {
     override val name: String = "Sumber tidak tersedia"
     override val lang: String = ""
     override val supportsLatest: Boolean = false
+
+    override fun getFilterList(): FilterList = FilterList()
 
     override suspend fun getPopularManga(page: Int): MangasPage = MangasPage(emptyList(), false)
 
