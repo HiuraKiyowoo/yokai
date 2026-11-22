@@ -10,6 +10,7 @@ import eu.kanade.tachiyomi.data.preference.PreferencesHelper
 import eu.kanade.tachiyomi.domain.manga.models.Manga
 import eu.kanade.tachiyomi.source.CatalogueSource
 import eu.kanade.tachiyomi.source.SourceManager
+import eu.kanade.tachiyomi.source.UnavailableSource
 import eu.kanade.tachiyomi.source.model.Filter
 import eu.kanade.tachiyomi.source.model.FilterList
 import eu.kanade.tachiyomi.source.model.SManga
@@ -126,7 +127,13 @@ open class BrowseSourcePresenter(
     override fun onCreate() {
         super.onCreate()
         if (!::pager.isInitialized) {
-            source = sourceManager.get(sourceId) as? CatalogueSource ?: return
+            source = sourceManager.get(sourceId) as? CatalogueSource ?: run {
+                // Sumber belum ada di peta (pemuatan ekstensi asinkron). Jangan `return`:
+                // itu meninggalkan `lateinit var source` kosong dan membuat app crash di
+                // onViewCreated ("lateinit property source has not been initialized").
+                co.touchlab.kermit.Logger.w { "Source $sourceId belum tersedia, pakai sumber pengganti" }
+                UnavailableSource(sourceId)
+            }
 
             sourceFilters = source.getFilterList()
 
