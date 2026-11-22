@@ -152,6 +152,22 @@ internal object ExtensionLoader {
             pkgManager.getInstalledPackages(PACKAGE_FLAGS)
         }
 
+        // Diagnostik: tanpa ini, "daftar ekstensi kosong" tidak bisa dibedakan antara
+        // (a) paket tidak terlihat app, (b) fitur tidak dikenali, (c) ditolak versi lib.
+        run {
+            val kandidat = installedPkgs.filter {
+                it.packageName.contains(".extension") || it.packageName.contains("animeextension")
+            }
+            android.util.Log.w("YOKAI_EXT", "pkg total=${installedPkgs.size} kandidat=${kandidat.size}")
+            kandidat.forEach { p ->
+                val fitur = p.reqFeatures.orEmpty().joinToString(",") { it.name }
+                android.util.Log.w(
+                    "YOKAI_EXT",
+                    "  ${p.packageName} | fitur=[$fitur] | cocok=${isPackageAnExtension(p)}",
+                )
+            }
+        }
+
         val sharedExtPkgs = installedPkgs
             .asSequence()
             .filter { isPackageAnExtension(it) }
@@ -340,11 +356,16 @@ internal object ExtensionLoader {
             ?: metaData.get(METADATA_EXTENSION_LIB_ANIME)?.toString()?.toDoubleOrNull()
             ?: versionName.substringBeforeLast('.').toDoubleOrNull()
         if (libVersion == null || libVersion < LIB_VERSION_MIN || libVersion > LIB_VERSION_MAX) {
+            android.util.Log.w(
+                "YOKAI_EXT",
+                "TOLAK $pkgName lib=$libVersion (jendela $LIB_VERSION_MIN..$LIB_VERSION_MAX) vers=$versionName",
+            )
             Logger.w {
                 "Lib version is $libVersion, while only versions $LIB_VERSION_MIN to $LIB_VERSION_MAX are allowed"
             }
             return LoadResult.Error
         }
+        android.util.Log.w("YOKAI_EXT", "LOLOS $pkgName lib=$libVersion vers=$versionName")
 
         val signatures = getSignatures(pkgInfo)
         if (signatures.isNullOrEmpty()) {
@@ -411,12 +432,27 @@ internal object ExtensionLoader {
                         // Ekstensi generasi baru (lib 12–16) mengekspor antarmuka anime,
                         // bukan Source manga. Bungkus dengan adaptor supaya masuk ke pipeline
                         // UI yang sudah ada, tanpa mengubah layar mana pun.
-                        is AnimeCatalogueSource -> listOf<Source>(AnimeSourceAdapter(obj))
-                        is AnimeSourceFactory -> obj.createSources().mapNotNull { a ->
-                            when (a) {
-                                is AnimeCatalogueSource -> AnimeSourceAdapter(a) as Source
-                                // AnimeSource tanpa kemampuan katalog belum bisa ditampilkan.
-                                else -> null
+                        is AnimeCatalogueSource -> {
+                            android.util.Log.w("YOKAI_EXT", "ADAPTOR ${obj.javaClass.name} (katalog)")
+                            listOf<Source>(AnimeSourceAdapter(obj))
+                        }
+                        is AnimeSourceFactory -> {
+                            val daftar = obj.createSources()
+                            android.util.Log.w(
+                                "YOKAI_EXT",
+                                "ADAPTOR pabrik ${obj.javaClass.name} → ${daftar.size} sumber anime",
+                            )
+                            daftar.mapNotNull { a ->
+                                when (a) {
+                                    is AnimeCatalogueSource -> AnimeSourceAdapter(a) as Source
+                                    else -> {
+                                        android.util.Log.w(
+                                            "YOKAI_EXT",
+                                            "LEWAT ${a.javaClass.name} (bukan katalog)",
+                                        )
+                                        null
+                                    }
+                                }
                             }
                         }
 
