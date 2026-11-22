@@ -378,12 +378,14 @@ internal object ExtensionLoader {
             return LoadResult.Error
         }
 
-        val sources = metaData.getString(METADATA_SOURCE_CLASS)
-            ?: metaData.getString(METADATA_SOURCE_CLASS_ANIME)
-            ?: run {
-                Logger.w { "No source class metadata for $pkgName" }
-                return LoadResult.Error
-            }
+        val sources = (
+            metaData.getString(METADATA_SOURCE_CLASS)
+                ?: metaData.getString(METADATA_SOURCE_CLASS_ANIME)
+                ?: run {
+                    Logger.w { "No source class metadata for $pkgName" }
+                    return LoadResult.Error
+                }
+            )
             .split(";")
             .map {
                 val sourceClass = it.trim()
