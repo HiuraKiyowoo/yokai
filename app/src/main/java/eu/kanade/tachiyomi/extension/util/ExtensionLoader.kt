@@ -54,6 +54,9 @@ internal object ExtensionLoader {
      */
     private val EXTENSION_FEATURES = setOf(
         EXTENSION_FEATURE,
+        // Nama yang BENAR-BENAR dipakai ekstensi anime (diverifikasi dengan membongkar
+        // AndroidManifest.xml biner, bukan dari dugaan): <uses-feature name="tachiyomi.animeextension">
+        "tachiyomi.animeextension",
         "aniyomix.extension",
         "aniyomi.extension",
         "keiyoushi.extension",
@@ -68,7 +71,9 @@ internal object ExtensionLoader {
     private const val METADATA_NAME = "tachiyomix.name"
     private const val METADATA_NAME_ANIME = "aniyomix.name"
     private const val METADATA_EXTENSION_LIB = "tachiyomix.extensionLib"
+    private const val METADATA_EXTENSION_LIB_ANIME = "aniyomix.extensionLib"
     private const val METADATA_CONTENT_WARNING = "tachiyomix.contentWarning"
+    private const val METADATA_CONTENT_WARNING_ANIME = "aniyomix.contentWarning"
     /**
      * Jendela versi library ekstensi yang diterima.
      *
@@ -332,6 +337,7 @@ internal object ExtensionLoader {
         // Repositories publish this metadata as either a String or Float. Reading it through
         // Bundle.get() avoids Android's ClassCastException warning on Float-valued extensions.
         val libVersion = metaData.get(METADATA_EXTENSION_LIB)?.toString()?.toDoubleOrNull()
+            ?: metaData.get(METADATA_EXTENSION_LIB_ANIME)?.toString()?.toDoubleOrNull()
             ?: versionName.substringBeforeLast('.').toDoubleOrNull()
         if (libVersion == null || libVersion < LIB_VERSION_MIN || libVersion > LIB_VERSION_MAX) {
             Logger.w {
@@ -359,6 +365,7 @@ internal object ExtensionLoader {
 
         // Repositories publish this metadata as either a String or Int.
         val contentWarning = metaData.get(METADATA_CONTENT_WARNING)?.toString()?.toIntOrNull()
+            ?: metaData.get(METADATA_CONTENT_WARNING_ANIME)?.toString()?.toIntOrNull()
             ?: 0
         val isNsfw = contentWarning > 0 ||
             metaData.getInt(METADATA_NSFW) == 1 ||
