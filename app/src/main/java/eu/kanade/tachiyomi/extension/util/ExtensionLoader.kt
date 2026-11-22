@@ -43,12 +43,30 @@ internal object ExtensionLoader {
     }
 
     private const val EXTENSION_FEATURE = "tachiyomi.extension"
+
+    /**
+     * Nama `uses-feature` yang menandai sebuah paket sebagai ekstensi.
+     *
+     * Ekstensi generasi baru (repo Yuzono / ekosistem Aniyomi-Keiyoushi) memakai
+     * `aniyomix.extension`, bukan `tachiyomi.extension`. Kalau hanya nama lama yang diterima,
+     * ekstensinya tetap terpasang di Android tetapi TIDAK PERNAH muncul di daftar aplikasi —
+     * gejalanya persis "sudah di-install tapi tidak ada".
+     */
+    private val EXTENSION_FEATURES = setOf(
+        EXTENSION_FEATURE,
+        "aniyomix.extension",
+        "aniyomi.extension",
+        "keiyoushi.extension",
+    )
     private const val METADATA_SOURCE_CLASS = "tachiyomi.extension.class"
+    private const val METADATA_SOURCE_CLASS_ANIME = "tachiyomi.animeextension.class"
     private const val METADATA_SOURCE_FACTORY = "tachiyomi.extension.factory"
     private const val METADATA_NSFW = "tachiyomi.extension.nsfw"
+    private const val METADATA_NSFW_ANIME = "tachiyomi.animeextension.nsfw"
     private const val METADATA_HAS_README = "tachiyomi.extension.hasReadme"
     private const val METADATA_HAS_CHANGELOG = "tachiyomi.extension.hasChangelog"
     private const val METADATA_NAME = "tachiyomix.name"
+    private const val METADATA_NAME_ANIME = "aniyomix.name"
     private const val METADATA_EXTENSION_LIB = "tachiyomix.extensionLib"
     private const val METADATA_CONTENT_WARNING = "tachiyomix.contentWarning"
     /**
@@ -299,7 +317,10 @@ internal object ExtensionLoader {
         val metaData = appInfo.metaData ?: return LoadResult.Error
 
         val extName = metaData.getString(METADATA_NAME)
-            ?: pkgManager.getApplicationLabel(appInfo).toString().substringAfter("Tachiyomi: ")
+            ?: metaData.getString(METADATA_NAME_ANIME)
+            ?: pkgManager.getApplicationLabel(appInfo).toString()
+                .substringAfter("Tachiyomi: ")
+                .substringAfter("Aniyomi: ")
         val versionName = pkgInfo.versionName
         val versionCode = PackageInfoCompat.getLongVersionCode(pkgInfo)
 
@@ -339,7 +360,9 @@ internal object ExtensionLoader {
         // Repositories publish this metadata as either a String or Int.
         val contentWarning = metaData.get(METADATA_CONTENT_WARNING)?.toString()?.toIntOrNull()
             ?: 0
-        val isNsfw = contentWarning > 0 || metaData.getInt(METADATA_NSFW) == 1
+        val isNsfw = contentWarning > 0 ||
+            metaData.getInt(METADATA_NSFW) == 1 ||
+            metaData.getInt(METADATA_NSFW_ANIME) == 1
         if (!loadNsfwSource && isNsfw) {
             Logger.w { "NSFW extension $pkgName not allowed" }
             return LoadResult.Error
@@ -355,7 +378,12 @@ internal object ExtensionLoader {
             return LoadResult.Error
         }
 
-        val sources = metaData.getString(METADATA_SOURCE_CLASS)!!
+        val sources = metaData.getString(METADATA_SOURCE_CLASS)
+            ?: metaData.getString(METADATA_SOURCE_CLASS_ANIME)
+            ?: run {
+                Logger.w { "No source class metadata for $pkgName" }
+                return LoadResult.Error
+            }
             .split(";")
             .map {
                 val sourceClass = it.trim()
@@ -447,7 +475,7 @@ internal object ExtensionLoader {
      * @param pkgInfo The package info of the application.
      */
     private fun isPackageAnExtension(pkgInfo: PackageInfo): Boolean =
-        pkgInfo.reqFeatures.orEmpty().any { it.name == EXTENSION_FEATURE }
+        pkgInfo.reqFeatures.orEmpty().any { it.name in EXTENSION_FEATURES }
 
     /**
      * Returns the signatures of the package or null if it's not signed.
