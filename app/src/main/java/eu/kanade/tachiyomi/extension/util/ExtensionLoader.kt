@@ -12,6 +12,9 @@ import eu.kanade.tachiyomi.BuildConfig
 import eu.kanade.tachiyomi.data.preference.PreferencesHelper
 import eu.kanade.tachiyomi.extension.model.Extension
 import eu.kanade.tachiyomi.extension.model.LoadResult
+import eu.kanade.tachiyomi.animesource.AnimeCatalogueSource
+import eu.kanade.tachiyomi.animesource.AnimeSourceFactory
+import eu.kanade.tachiyomi.source.AnimeSourceAdapter
 import eu.kanade.tachiyomi.source.CatalogueSource
 import eu.kanade.tachiyomi.source.Source
 import eu.kanade.tachiyomi.source.SourceFactory
@@ -48,8 +51,19 @@ internal object ExtensionLoader {
     private const val METADATA_NAME = "tachiyomix.name"
     private const val METADATA_EXTENSION_LIB = "tachiyomix.extensionLib"
     private const val METADATA_CONTENT_WARNING = "tachiyomix.contentWarning"
-    const val LIB_VERSION_MIN = 1.3
-    const val LIB_VERSION_MAX = 1.6
+    /**
+     * Jendela versi library ekstensi yang diterima.
+     *
+     * Sebelumnya 1.3–1.6 (generasi lama). Dinaikkan ke 12–16 supaya ekstensi generasi baru
+     * (repo Yuzono: 189 entri ber-lib 14, 59 entri ber-lib 16) bisa dimuat.
+     *
+     * PENTING: angka ini hanya GERBANG. Ekstensi baru juga membutuhkan kelas
+     * `eu.kanade.tachiyomi.animesource.*` + `keiyoushi.*` yang sudah dimasukkan ke modul app,
+     * dan adaptor ke pipeline manga. Menaikkan angka tanpa itu hanya akan membuat entri
+     * muncul lalu gagal saat dibuka.
+     */
+    const val LIB_VERSION_MIN = 12
+    const val LIB_VERSION_MAX = 16
 
     @Suppress("DEPRECATION")
     private val PACKAGE_FLAGS = PackageManager.GET_CONFIGURATIONS or
@@ -356,6 +370,19 @@ internal object ExtensionLoader {
                     when (val obj = Class.forName(it, false, classLoader).getDeclaredConstructor().newInstance()) {
                         is Source -> listOf(obj)
                         is SourceFactory -> obj.createSources()
+
+                        // Ekstensi generasi baru (lib 12–16) mengekspor antarmuka anime,
+                        // bukan Source manga. Bungkus dengan adaptor supaya masuk ke pipeline
+                        // UI yang sudah ada, tanpa mengubah layar mana pun.
+                        is AnimeCatalogueSource -> listOf(AnimeSourceAdapter(obj))
+                        is AnimeSourceFactory -> obj.createSources().mapNotNull { a ->
+                            when (a) {
+                                is AnimeCatalogueSource -> AnimeSourceAdapter(a)
+                                // AnimeSource tanpa kemampuan katalog belum bisa ditampilkan.
+                                else -> null
+                            }
+                        }
+
                         else -> throw Exception("Unknown source class type! ${obj.javaClass}")
                     }
                 } catch (e: Throwable) {

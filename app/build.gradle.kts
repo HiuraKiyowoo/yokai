@@ -189,6 +189,10 @@ dependencies {
     implementation(libs.media3.ui)
     implementation(libs.media3.exoplayer.hls)
 
+    // NanoHTTPD: dibutuhkan `animesource.model.HttpServer` pada API ekstensi anime
+    // generasi baru. Tanpa ini modul app gagal compile (bukan gagal saat runtime).
+    implementation("org.nanohttpd:nanohttpd:2.3.1")
+
     implementation(libs.material)
 
     // Android X libraries
